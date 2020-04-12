@@ -1,0 +1,151 @@
+<!-- Main header start -->
+<!--
+<header class="main-header header-transparent">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand logo" href="index.html">
+                <img src="assets/img/logos/logo.png" alt="logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+
+                    <li class="nav-item  " *ngFor="let menu of _navBar.menu">
+                        <a class="nav-link  " [ngClass]="{' dropdown-toggle':menu.submenu.length > 0}" [routerLink]="[menu.url]" routerLinkActive="active" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{menu.titulo}}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li *ngFor="let submenu of menu.submenu">
+                                <a class="dropdown-item" [routerLink]="[submenu.url]"><i [class]="submenu.icono"></i> {{submenu.titulo}}</a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <li class="nav-item" *ngIf="!logeado">
+                        <a class="btn btn-sm btn-block-outline btn-round signup-link" routerLink="/login">Iniciar Sesión</a>
+                    </li>
+                    <li class="nav-item" *ngIf="!logeado">
+                        <a class="btn btn-sm btn-block btn-round signup-link hidden-mb-20" routerLink="/prev_registro">Registrarse</a>
+                    </li>
+                    <ng-container *ngIf="logeado">
+                        <li class="nav-item nav-item-drop dropdown margin-bell">
+                            <a class="nav-link hvr-grow" aria-haspopup="true" aria-expanded="false" style="font-size:17px">
+
+                                <i class="fa fa-bell-o" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item nav-item-drop dropdown " *ngFor="let menu of _navBar.panelUsuario">
+                            <a class="nav-link hvr-grow  " style="margin-top:-5px" [ngClass]="{' dropdown-toggle':menu.submenu.length > 0}" [routerLink]="[menu.url]" routerLinkActive="active" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                <img [src]="usuario.img | imagen " class="profile-pic  ">
+                                <span class="nombre-perfil ocultar-grande"> 
+                                    {{usuario.nombre}} {{usuario.apellidos}}
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-side animated fadeIn" aria-labelledby="navbarDropdownMenuLink">
+                                <li>
+                                    <a class="dropdown-item ocultar-grande " (click)="_loginService.logout()">
+                                        <i class="fa fa-bell-o"></i> Notificaciones
+                                    </a>
+                                </li>
+                                <li *ngFor="let submenu of menu.submenu">
+                                    <a class="dropdown-item" [routerLink]="[submenu.url]"><i [class]="submenu.icono"></i> {{submenu.titulo}}</a>
+                                </li>
+                                <hr>
+                                <li>
+                                    <a class="dropdown-item" (click)="_loginService.logout()">
+                                        <i class="flaticon-exit"></i> Cerrar sesión
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+                    </ng-container>
+
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>-->
+<!-- Main header end -->
+<!-- Main header start -->
+<header class="main-header">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand logo" href="index.html">
+                <!-- <img src="img/logos/logo.png" alt="logo"> -->
+                <span><b><span style="font-size: 25px;">C</span>AN<span style="font-size: 25px;">A</span>DOPTA</b>
+                </span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <ng-container *ngIf="logeado">
+                        <li class="nav-item  " *ngFor="let menu of _navBar.menu">
+                            <a class="nav-link  " [ngClass]="{' dropdown-toggle':menu.submenu.length > 0}" [routerLink]="[menu.url]" routerLinkActive="active" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{menu.titulo}}
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li *ngFor="let submenu of menu.submenu">
+                                    <a class="dropdown-item" [routerLink]="[submenu.url]"><i [class]="submenu.icono"></i> {{submenu.titulo}}</a>
+                                </li>
+
+                            </ul>
+                        </li>
+                    </ng-container>
+
+                    <li class="nav-item" *ngIf="!logeado">
+                        <a class="btn btn-sm btn-block btn-round signup-link" routerLink="/login">Iniciar Sesión</a>
+                    </li>
+                    <!-- <li class="nav-item" *ngIf="!logeado">
+                        <a class="btn btn-sm btn-block btn-round signup-link hidden-mb-20 ml-3" >Registrarse</a>
+                    </li> -->
+
+                    <ng-container *ngIf="logeado">
+                        <li class="nav-item nav-item-drop dropdown margin-bell">
+                            <a class="nav-link hvr-grow" aria-haspopup="true" aria-expanded="false" style="font-size:17px">
+
+                                <i class="fa fa-bell-o" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item nav-item-drop dropdown " *ngFor="let menu of _navBar.panelUsuario">
+                            <a class="nav-link hvr-grow  " style="margin-top:-5px" [ngClass]="{' dropdown-toggle':menu.submenu.length > 0}" [routerLink]="[menu.url]" routerLinkActive="active" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                <img [src]="usuario.img | imagen " class="profile-pic  ">
+                                <span class="nombre-perfil ocultar-grande"> 
+                                    {{usuario.nombre}} {{usuario.apellidos}}
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-side" aria-labelledby="navbarDropdownMenuLink">
+                                <li>
+                                    <a class="dropdown-item ocultar-grande " (click)="_loginService.logout()">
+                                        <i class="fa fa-bell-o"></i> Notificaciones
+                                    </a>
+                                </li>
+                                <li *ngFor="let submenu of menu.submenu">
+                                    <a class="dropdown-item" [routerLink]="[submenu.url]"><i [class]="submenu.icono"></i> {{submenu.titulo}}</a>
+                                </li>
+                                <hr>
+                                <li>
+                                    <a class="dropdown-item" (click)="_loginService.logout()">
+                                        <i class="flaticon-exit"></i> Cerrar sesión
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+                    </ng-container>
+
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+<!-- Main header end -->

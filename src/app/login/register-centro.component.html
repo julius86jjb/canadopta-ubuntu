@@ -1,0 +1,205 @@
+<header class="main-header">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand logo" href="index.html">
+                <!-- <img src="img/logos/logo.png" alt="logo"> -->
+                <span><b><span style="font-size: 25px;">C</span>AN<span style="font-size: 25px;">A</span>DOPTA</b>
+                </span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+
+
+                    <li class="nav-item">
+                        <a class="btn btn-sm btn-block btn-round signup-link" routerLink="/login">Iniciar Sesión</a>
+                    </li>
+
+
+
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<div class="page_loader" *ngIf="cargando"></div>
+
+<!-- Contact section start -->
+<div class="contact-section overview-bgi">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-lg-12">
+                <h2 class="text-uppercase" data-animation="animated fadeInDown delay-05s">Registro de centros de adopción</h2>
+                <h6>Este formulario es válido únicamente para el registro de nuevos centros de adopción. Si quiere registarse como futuro adoptante, haga click
+                    <a routerLink="/register">aquí</a>
+                </h6>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Form content box start -->
+                <div class="form-content-box">
+                    <!-- Logo-->
+
+                    <!-- details -->
+                    <div class="details">
+
+
+
+                        <h4 class="mb-4 text-left" style="font-size: 14px;font-weight: bold;">Datos de Usuario </h4>
+                        <form ngNativeValidate [formGroup]="forma" (ngSubmit)="registrarCentro()">
+
+
+                            <div class="form-group">
+                                <input formControlName="email" type="email" name="email" class="input-text" placeholder="Email" required>
+                            </div>
+
+                            <div class="mensaje-validacion-form form-group text-right text-danger" *ngIf="forma.get('email').errors && !!forma.get('email').errors.emailTaken">
+
+                                <small>
+                                    <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                                    Este email ya ha sido registrado!
+                                    <a routerLink="/login"><b> Inicia Sesión</b></a>
+                                </small>
+
+                            </div>
+
+                            <div class="mensaje-validacion-form form-group text-right text-danger" *ngIf="forma.controls['email'].errors && !!forma.controls.email.errors.pattern">
+
+                                <small>
+                                    <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                                     Formato de email incorrecto!
+                                   
+                                </small>
+
+                            </div>
+
+                            <div class="form-group">
+                                <input formControlName="password" type="password" name="password" class="input-text" placeholder="Contraseña" required>
+                            </div>
+
+
+                            <div class="mensaje-validacion-form form-group text-right text-danger" *ngIf="forma.get('password').errors && !!forma.get('password').errors.minlength">
+
+                                <small>
+                                    <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                                    La constraseña debe contener al menos 6 carácteres!
+                                   
+                                </small>
+
+                            </div>
+
+                            <div class="mensaje-validacion-form form-group text-right text-danger" *ngIf="forma.get('password').errors && !!forma.get('password').errors.maxlength">
+
+                                <small>
+                                    <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                                     La constraseña debe contener como máximo 20 carácteres!
+                                   
+                                </small>
+
+                            </div>
+
+                            <div class="form-group">
+                                <input formControlName="password2" type="password" name="password2" class="input-text" placeholder="Confirmar contraseña" required>
+                            </div>
+
+                            <div class="mensaje-validacion-form form-group text-right text-danger" *ngIf="!forma.controls.password2.pristine && !!forma.errors?.sonIguales">
+
+                                <small>
+                                    <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                                     Las contraseñas no coinciden!
+                                   
+                                </small>
+
+                            </div>
+
+                            <!-- <div class="form-group">
+                                <input formControlName="nombre" type="text" name="nombre" class="input-text" placeholder="Nombre" required>
+                            </div>
+
+                            <div class="form-group">
+                                <input formControlName="apellidos" type="text" name="apellidos" class="input-text" placeholder="Apellidos" required>
+                            </div> -->
+
+
+
+                            <hr>
+
+                            <h4 class="mb-4 text-left" style="font-size: 14px;font-weight: bold;">Datos del Centro: </h4>
+
+                            <div class="form-group">
+                                <input formControlName="nombre_centro" type="text" name="nombre1_centro" class="input-text" placeholder="Nombre del centro" required>
+                            </div>
+
+                            <!-- <div class="form-group">
+                                <select formControlName="tipoCentro" name="tipoCentro" id="" class="form-control input-text search-fields" required>
+                                    <option value="" disabled checked>Selecciona el tipo de centro</option>
+                                    <option value="Protectora">Protectora</option>
+                                    <option value="Albergue">Albergue</option>
+                                    <option value="Refugio">Refugio</option>
+                                    <option value="Perrera">Perrera</option>
+                                    
+                                </select>
+                            </div> -->
+
+                            <div class="form-group">
+                                <input formControlName="telefono" type="text" name="telefono" class="input-text" placeholder="Teléfono de contacto" required>
+                            </div>
+                            <div class="form-group">
+                                <select formControlName="comunidad_aut" name="comunidad_aut" class="form-control input-text search-fields" required (change)="changeComunidad($event.target.value)">
+                                <option checked value="">Seleccione una comunidad autónoma</option>
+                                <option *ngFor="let comunidad of comunidades">{{comunidad.name}}</option>
+                            </select>
+                            </div>
+
+                            <div class="form-group">
+                                <select formControlName="prov" name="prov" class="form-control input-text search-fields" required>
+                                <option  checked value="" >Seleccione una provincia</option>
+                                <option *ngFor="let provincia of provincias">{{provincia}}</option>
+                            </select>
+                            </div>
+
+
+                            <div class="form-group " style="text-align:left;">
+
+                                <div class="checkbox checkbox-primary p-t-0 left">
+                                    <input formControlName="condiciones" name="condiciones" id="checkbox-signup" type="checkbox">
+                                    <label for="checkbox-signup" style="margin-left: 5px"> Estoy de acuerdo con los  <a href="#">Términos</a></label>
+                                </div>
+
+                            </div>
+                            <div class="form-group mb-0">
+                                <button type="submit" class="btn-md button-theme btn-block">Registrarme</button>
+                            </div>
+                        </form>
+                        <!-- Form end-->
+                    </div>
+                    <!-- Footer -->
+                    <div class="footer">
+                        <span>
+                            Ya eres miembro? <a  routerLink="/login">Inicia sesión</a>
+                        </span>
+                    </div>
+                </div>
+                <!-- Form content box end -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact section end -->
+
+
+
+<!-- Full Page Search -->
+<div id="full-page-search">
+    <button type="button" class="close">×</button>
+    <form action="index.html#">
+        <input type="search" value="" placeholder="type keyword(s) here" />
+        <button type="submit" class="btn btn-sm button-theme">Search</button>
+    </form>
+</div>

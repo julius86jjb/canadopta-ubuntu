@@ -1,0 +1,102 @@
+<!-- Contact section start -->
+
+<header class="main-header">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand logo" href="index.html">
+                <!-- <img src="img/logos/logo.png" alt="logo"> -->
+                <span><b><span style="font-size: 25px;">C</span>AN<span style="font-size: 25px;">A</span>DOPTA</b>
+                </span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+
+
+                    <!-- <li class="nav-item" *ngIf="!logeado">
+                        <a class="btn btn-sm btn-block btn-round signup-link" routerLink="/login">Iniciar Sesión</a>
+                    </li> -->
+                    <li class="nav-item">
+                        <a class="btn btn-sm btn-block btn-round signup-link" routerLink="/register">Registrarse</a>
+                    </li>
+
+
+
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<div class="contact-section overview-bgi">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-lg-12">
+                <h2 class="text-uppercase" data-animation="animated fadeInDown delay-05s">Iniciar Sesion</h2>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Form content box start -->
+                <div class="form-content-box">
+
+                    <!-- details -->
+                    <div class="details">
+
+                        <div class="form-group mb-4">
+
+                            <button type="button" class="btn btn-danger mb-1" style="width:100%" id="btnGoogle">
+                                <i class="fa fa-google" aria-hidden="true"></i>
+                                Inicia sesión con Google
+                            </button>
+
+                            <button type="button" class="btn btn-face" style="width:100%"> 
+                                <i aria-hidden=" true " class="fa fa-facebook-official "></i>
+                                Inicia sesión con facebook
+                            </button>
+                        </div>
+                        <!-- Name -->
+                        <h5 class="mb-4" style="font-size: 15px;">O inicia sesión con tu correo eléctronico</h5>
+                        <!-- Form start -->
+                        <form ngNativeValidate #f="ngForm" class="form-horizontal form-material" (ngSubmit)="ingresar(f)" novalidate>
+                            <div class="form-group">
+                                <input [ngModel]="email" type="email" name="email" class="input-text" placeholder="Email" required>
+                            </div>
+                            <div class="form-group">
+                                <input ngModel type="password" name="password" class="input-text" placeholder="Contraseña" required>
+                            </div>
+                            <div class="checkbox">
+                                <div class="ez-checkbox pull-left">
+                                    <label>
+                                            <input [(ngModel)]="recuerdame" name="recuerdame" type="checkbox" class="ez-hide">
+                                            Recuérdame
+                                        </label>
+                                </div>
+                                <a href="forgot-password.html" class="link-not-important pull-right">Recuperar contraseña</a>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="form-group mb-0">
+                                <button class="btn btn-md button-theme btn-block" type="submit">Entrar</button>
+                            </div>
+                        </form>
+                        <!-- Form end -->
+                    </div>
+                    <!-- Footer -->
+                    <div class="footer">
+                        <span>
+                            Eres nuevo en Canadopta? <a  routerLink="/register">Regístrate aquí</a>
+                        </span>
+                    </div>
+                </div>
+                <!-- Form content box end -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact section end -->
+
+<!-- Full Page Search -->

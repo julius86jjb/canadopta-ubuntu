@@ -1,0 +1,172 @@
+<header class="main-header">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand logo" href="index.html">
+                <!-- <img src="img/logos/logo.png" alt="logo"> -->
+                <span><b><span style="font-size: 25px;">C</span>AN<span style="font-size: 25px;">A</span>DOPTA</b>
+                </span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+
+
+                    <li class="nav-item">
+                        <a class="btn btn-sm btn-block btn-round signup-link" routerLink="/login">Iniciar Sesión</a>
+                    </li>
+
+
+
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<div class="page_loader" *ngIf="cargando"></div>
+
+<!-- Contact section start -->
+<div class="contact-section overview-bgi">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-lg-12">
+                <h2 class="text-uppercase" data-animation="animated fadeInDown delay-05s">Registro de Adoptantes</h2>
+                <h6>Este formulario es válido unicamente para el registro de nuevos usuarios que quieran adoptar. Si quiere registar un centro de adopción, haga click
+                    <a routerLink="/register_centro">aquí</a>
+                </h6>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Form content box start -->
+                <div class="form-content-box">
+                    <!-- Logo-->
+
+                    <!-- details -->
+                    <div class="details">
+                        <div class="form-group mb-4">
+
+                            <button type="button" class="btn btn-google mb-1" style="width:100%" id="btnGoogle">
+                                <i class="fa fa-google" aria-hidden="true"></i>
+                                Regístrate con Google
+                            </button>
+                            <button routerLink="/#" type="button" class="btn btn-face" style="width:100%"> 
+                                <i aria-hidden=" true " class="fa fa-facebook-official "></i>
+                                Registrarse con facebook
+                            </button>
+                        </div>
+                        <!-- Name -->
+                        <h5 class="mb-4" style="font-size: 15px;">O regístrate con tu correo eléctronico</h5>
+                        <form ngNativeValidate [formGroup]="forma" (ngSubmit)="registrarUsuario()">
+                            <!-- <div class="form-group">
+                                <input formControlName="nombre" type="text" name="nombre" class="input-text" placeholder="Nombre" required>
+                            </div>
+
+                            <div class="form-group">
+                                <input formControlName="apellidos" type="text" name="apellidos" class="input-text" placeholder="Apellidos" required>
+                            </div> 
+                            <hr>-->
+                            <div class="form-group">
+                                <input formControlName="email" type="email" name="email" class="input-text" placeholder="Email" required>
+                            </div>
+
+                            <div class="mensaje-validacion-form form-group text-right text-danger" *ngIf="forma.get('email').errors && !!forma.get('email').errors.emailTaken">
+
+                                <small>
+                                    <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                                    Este email ya ha sido registrado!
+                                    <a routerLink="/login"><b> Inicia Sesión</b></a>
+                                </small>
+
+                            </div>
+
+                            <div class="mensaje-validacion-form form-group text-right text-danger" *ngIf="forma.controls['email'].errors && !!forma.controls.email.errors.pattern">
+
+                                <small>
+                                    <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                                     Formato de email incorrecto!
+                                   
+                                </small>
+
+                            </div>
+
+                            <div class="form-group">
+                                <input formControlName="password" type="password" name="password" class="input-text" placeholder="Contraseña" required>
+                            </div>
+
+
+                            <div class="mensaje-validacion-form form-group text-right text-danger" *ngIf="forma.get('password').errors && !!forma.get('password').errors.minlength">
+
+                                <small>
+                                    <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                                    La constraseña debe contener al menos 6 carácteres!
+                                   
+                                </small>
+
+                            </div>
+
+                            <div class="mensaje-validacion-form form-group text-right text-danger" *ngIf="forma.get('password').errors && !!forma.get('password').errors.maxlength">
+
+                                <small>
+                                    <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                                     La constraseña debe contener como máximo 20 carácteres!
+                                   
+                                </small>
+
+                            </div>
+
+                            <div class="form-group">
+                                <input formControlName="password2" type="password" name="password2" class="input-text" placeholder="Confirmar contraseña" required>
+                            </div>
+
+                            <div class="mensaje-validacion-form form-group text-right text-danger" *ngIf="!forma.controls.password2.pristine && !!forma.errors?.sonIguales">
+
+                                <small>
+                                    <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                                     Las contraseñas no coinciden!
+                                   
+                                </small>
+
+                            </div>
+
+
+                            <div class="form-group " style="text-align:left;">
+
+                                <div class="checkbox checkbox-primary p-t-0 left">
+                                    <input formControlName="condiciones" name="condiciones" id="checkbox-signup" type="checkbox">
+                                    <label for="checkbox-signup" style="margin-left: 5px"> Estoy de acuerdo con los  <a href="#">Términos</a></label>
+                                </div>
+
+                            </div>
+                            <div class="form-group mb-0">
+                                <button type="submit" class="btn-md button-theme btn-block">Registrarme</button>
+                            </div>
+                        </form>
+                        <!-- Form end-->
+                    </div>
+                    <!-- Footer -->
+                    <div class="footer">
+                        <span>
+                            Ya eres miembro? <a  routerLink="/login">Inicia sesión</a>
+                        </span>
+                    </div>
+                </div>
+                <!-- Form content box end -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact section end -->
+
+<!-- Full Page Search -->
+<div id="full-page-search">
+    <button type="button" class="close">×</button>
+    <form action="index.html#">
+        <input type="search" value="" placeholder="type keyword(s) here" />
+        <button type="submit" class="btn btn-sm button-theme">Search</button>
+    </form>
+</div>

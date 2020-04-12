@@ -1,0 +1,1 @@
+localStorage en conf_registro
