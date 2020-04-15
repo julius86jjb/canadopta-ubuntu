@@ -41,7 +41,9 @@ export class NavbarService {
             submenu: [
                 {titulo: 'Mi Perfil', icono: 'flaticon-people', url: '/perfil'},
                 {titulo: 'Mis Mascotas', icono: 'flaticon-favorite', url: ''},
-                {titulo: 'Subir Macosta', icono: 'flaticon-cross', url: ''},
+                {titulo: 'Mis Centros de Adopción', icono: 'flaticon-internet', url: ''},
+                {titulo: 'Publicar Macosta', icono: 'flaticon-cross', url: ''},
+                {titulo: 'Panel de Control', icono: 'flaticon-monitor', url: '/panel_control'},
                 // {titulo: 'Cerrar sesión', icono: 'flaticon-exit', url: '/login'}
             ]
         }

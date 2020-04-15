@@ -19,6 +19,8 @@ import { PipesModule } from '../pipes/pipes.module';
 import { HomeUsersComponent } from './home-users/home-users.component';
 import { ModalCompletarPerfilComponent } from '../components/modal-completar-perfil/modal-completar-perfil.component';
 import { ProfileComponent } from './profile/profile.component';
+import { PanelControlComponent } from './panel-control/panel-control.component';
+import { UsuariosComponent } from './panel-control/usuarios/usuarios.component';
 
 
 
@@ -32,7 +34,9 @@ import { ProfileComponent } from './profile/profile.component';
         ContactoComponent,
         HomeUsersComponent,
         ModalCompletarPerfilComponent,
-        ProfileComponent
+        ProfileComponent,
+        PanelControlComponent,
+        UsuariosComponent
     ],
     exports: [
         HomeComponent,

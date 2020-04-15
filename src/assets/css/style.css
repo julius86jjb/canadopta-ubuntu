@@ -5957,6 +5957,7 @@ table th {
 
 .tabbing-box .tab-pane {
     padding-top: 30px;
+    border: none;
 }
 
 .tabbing-box .nav-tabs {

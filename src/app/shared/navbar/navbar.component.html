@@ -116,7 +116,7 @@
                             </a>
                         </li>
                         <li class="nav-item nav-item-drop dropdown " *ngFor="let menu of _navBar.panelUsuario">
-                            <a class="nav-link hvr-grow  " style="margin-top:-5px" [ngClass]="{' dropdown-toggle':menu.submenu.length > 0}" [routerLink]="[menu.url]" routerLinkActive="active" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link hvr-grow  " style="margin-top:-5px" [ngClass]="{' dropdown-toggle':menu.submenu.length > 0}" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                                 <img [src]="usuario.img | imagen " class="profile-pic  ">
                                 <span class="nombre-perfil ocultar-grande"> 

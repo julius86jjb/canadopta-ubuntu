@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ɵConsole } from '@angular/core';
 import { URL_SERVICIOS } from '../../config/config';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -249,4 +249,36 @@ export class LoginService {
             console.log(resp);
         });
     }
+
+    cargarUsuarios( desde: number = 0 ) {
+
+        let url = URL_SERVICIOS + '/usuario?desde=' + desde;
+        url += '&token=' + this.token;
+
+        console.log(url);
+
+        return this.http.get(url);
+    }
+
+    buscarUsuarios(termnio: string) {
+        const url = URL_SERVICIOS + '/busqueda/coleccion/usuarios/' + termnio;
+        return this.http.get(url)
+        .pipe(
+            map((resp: any) => resp.usuarios)
+        );
+    }
+
+    borrarUsuario( id: string) {
+
+        const url = URL_SERVICIOS + '/usuario/' + id + '?token=' + this.token;
+
+        return this.http.delete(url)
+            .pipe(
+                map( resp => {
+                    Swal.fire('Usuario borrado', 'El usuario ha sido borrado correctamente', 'success');
+                    return true;
+                })
+            );
+    }
+
 }

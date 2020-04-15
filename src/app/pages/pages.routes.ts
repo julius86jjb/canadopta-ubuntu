@@ -9,6 +9,7 @@ import { HomeComponent } from '../home/home/home.component';
 import { HomeUsersComponent } from './home-users/home-users.component';
 import { LoginGuardGuard } from '../services/service.index';
 import { ProfileComponent } from './profile/profile.component';
+import { PanelControlComponent } from './panel-control/panel-control.component';
 
 const PagesRoutes: Routes = [
     {
@@ -27,7 +28,17 @@ const PagesRoutes: Routes = [
                     data : {titulo: 'CanAdopta - Perfil de Usuario'},
                     canActivate: [LoginGuardGuard]
             },
+
+            // Panel de Control
+
+            { path: 'panel_control', component: PanelControlComponent,
+                    data : {titulo: 'CanAdopta - Panel de Control'},
+                    canActivate: [LoginGuardGuard]
+            },
+
             { path: '', redirectTo: '/home', pathMatch: 'full' }
+
+
         ]
     },
 ];
