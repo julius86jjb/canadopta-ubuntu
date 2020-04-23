@@ -3169,8 +3169,7 @@ input[type=checkbox]:checked+label:before {
 }
 
 .pages-404 .btn,
-.pages-404 .btn:hover,
-.pages-404 .btn:active {
+{
     width: 31%;
     border-radius: 0;
     height: 45px;
@@ -3178,7 +3177,7 @@ input[type=checkbox]:checked+label:before {
     padding: 0 15px;
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -7805,5 +7804,3 @@ table th {
         height: 316px;
     }
 }
-
-pc

@@ -7,11 +7,10 @@
      font-weight: 700;
      letter-spacing: normal;
  }
- 
- .swal-button {
+ /* .swal-button {
      background-color: #b3c211;
      border: 1px solid #b3c211;
- }
+ } */
  
  .mensaje-validacion-form {
      margin-top: -25px;

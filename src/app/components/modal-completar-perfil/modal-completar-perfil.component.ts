@@ -20,15 +20,11 @@ export class ModalCompletarPerfilComponent implements OnInit {
       public _loginService: LoginService,
       public router: Router) {
     this.usuario = _loginService.usuario;
-    console.log(this.usuario);
+
   }
 
   ngOnInit() {
-    console.log(this.usuario);
 
-    if (this.usuario.perfil_ok === true) {
-      this.oculto = 'oculto';
-    }
 
     this.forma = new FormGroup({
       nombre: new FormControl(null, Validators.required ),

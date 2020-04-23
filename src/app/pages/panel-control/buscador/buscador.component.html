@@ -2,11 +2,11 @@
     <div class="row animated fadeInUp">
         <div class="col-xl-10 col-sm-8 col-8 search-col">
 
-            <input #buscador (keyup)="buscarUsuario(buscador.value)" type="text" class="form-control" placeholder="Buscar usuario ...">
+            <input #buscador (keyup)="buscar(buscador.value)" type="text" class="form-control" placeholder="Buscar usuarios, centros, mascotas...">
         </div>
 
         <div class="col-xl-2 col-sm-2 col-4 search-col">
-            <button class="btn button-theme btn-search btn-block">
+            <button (click)="buscar(buscador.value)" class="btn button-theme btn-search btn-block">
                 <i class="fa fa-search"></i><strong>Buscar</strong>
             </button>
         </div>
@@ -16,19 +16,8 @@
 </div>
 <br>
 
-
-<!-- <div class="row" *ngIf="cargando">
-    <div class="col-sm-12">
-        <div class="alert alert-warning text-center">
-
-            <i class="fa fa-refresh fa-spin fa-2x"></i>
-        </div>
-    </div>
-
-
-</div> -->
-<div class="table-responsive my-properties">
-    <h5>Usuarios Registrados ( <small>{{totalUsuarios}}</small> )</h5>
+<div class="table-responsive my-properties" *ngIf="usuarios.length">
+    <h5>Usuarios Encontrados ( <small>{{usuarios.length}}</small> )</h5>
     <table class="table table-sm brd-none">
         <thead>
             <tr>
@@ -66,19 +55,17 @@
 
                 </td>
                 <td class="text-center">
-                    <i *ngIf="usuario.verificado" class="fa fa-check text-success"></i>
-                    <i *ngIf="!usuario.verificado" class="fa fa-close text-danger"></i>
+                    <i *ngIf="usuario.verificado" class="fa fa-check"></i>
+                    <i *ngIf="!usuario.verificado" class="fa fa-close"></i>
 
                 </td>
-
-
-                <td>{{usuario.ultimaConexion | fechaPanelControl: 'DD/MM/YY kk:mm'}}</td>
+                <td>{{usuario.ultimaConexion}}</td>
                 <td class="acciones">
-                    <button (click)="guardarUsuario( usuario )" class="btn btn-primary   mr-1">
+                    <button (click)="guardarUsuario( usuario )" class="btn btn-primary acciones mr-1">
                         <i class="fa fa-save"></i>
                     </button>
 
-                    <button (click)="borrarUsuario(usuario )" class="btn btn-danger ">
+                    <button (click)="borrarUsuario(usuario )" class="btn btn-danger acciones">
                         <i class="fa fa-trash-o"></i>
                     </button>
                 </td>

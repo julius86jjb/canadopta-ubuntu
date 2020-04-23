@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+
+@font-face {
+    font-family: highlights;
+    src: url(assets/fonts/Highlight.otf) format("opentype");
+}
+
+@font-face {
+    font-family: HeyBeibeh;
+    src: url(assets/fonts/HeyBeibeh.ttf) format("opentype");
+}

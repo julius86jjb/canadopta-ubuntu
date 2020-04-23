@@ -1,28 +1,43 @@
 import { Component, OnInit } from '@angular/core';
+import { URL_SERVICIOS } from 'src/app/config/config';
+import { HttpClient } from '@angular/common/http';
 import { Usuario } from '../../../models/usuario.model';
 import { LoginService } from '../../../services/usuario/login.service';
 import Swal from 'sweetalert2';
-import * as moment from 'moment';
 
 @Component({
-  selector: 'app-usuarios',
-  templateUrl: './usuarios.component.html',
-  styleUrls: ['./usuarios.component.css']
+  selector: 'app-buscador',
+  templateUrl: './buscador.component.html',
+  styleUrls: ['./buscador.component.css']
 })
-export class UsuariosComponent implements OnInit {
+export class BuscadorComponent implements OnInit {
 
-  usuarios: Usuario;
+  usuarios: Usuario[] = [];
   desde = 0;
   totalUsuarios = 0;
   cargando = true;
   imagenSubir: File;
+  termino: string;
 
   constructor(
-    public _loginService: LoginService,
+    public http: HttpClient,
+    public _loginService: LoginService
   ) { }
 
   ngOnInit() {
-    this.cargarUsuarios();
+  }
+
+  buscar(termino: string) {
+    const url = URL_SERVICIOS + '/busqueda/todo/' + termino;
+
+        this.http.get(url)
+            .subscribe((resp: any) => {
+              this.termino = termino;
+                console.log(resp);
+                this.usuarios = resp.usuarios;
+                // this.medicos = resp.medicos;
+                // this.hospitales = resp.hospitales;
+            });
   }
 
   cargarUsuarios() {
@@ -47,21 +62,7 @@ export class UsuariosComponent implements OnInit {
     }
 
     this.desde += valor;
-    this.cargarUsuarios();
-  }
-  buscarUsuario(termino: string) {
-    if (termino.length <= 0) {
-        this.cargarUsuarios();
-        return;
-    }
-
-    this.cargando = true;
-    this._loginService.buscarUsuarios(termino)
-        .subscribe((usuarios: any) => {
-            // console.log(usuarios);
-            this.usuarios = usuarios;
-            this.cargando = false;
-        });
+    this.buscar(this.termino);
   }
 
   borrarUsuario(usuario: Usuario) {
@@ -88,7 +89,7 @@ export class UsuariosComponent implements OnInit {
                      if (this.desde === this.totalUsuarios) {
                          this.desde -= 10;
                      }
-                    this.cargarUsuarios();
+                     this.buscar(this.termino);
                 });
         } else {
 
@@ -132,7 +133,7 @@ export class UsuariosComponent implements OnInit {
           imageUrl: reader.result,
           imageAlt: 'Imagen Subida'
         });
-        this.cargarUsuarios();
+        this.buscar(this.termino);
       };
       reader.readAsDataURL(file);
 
@@ -141,5 +142,4 @@ export class UsuariosComponent implements OnInit {
 
     }
   }
-
 }

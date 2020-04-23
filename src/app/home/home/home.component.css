@@ -1,12 +1,80 @@
-.featured-properties {
-    margin-top: -100px;
+h2 {
+    float: center;
+    margin-top: 50px;
+    color: #fff;
+    margin-bottom: 0px;
+    font-size: 35px;
+    font-weight: 700;
+    letter-spacing: normal;
 }
 
-.social {
-    margin-bottom: 15px;
+.btn-google {
+    background-color: #dc4e41;
 }
 
-.social .btn {
-    width: 50%;
-    ;
+.btn-google:hover {
+    background-color: #bb2416;
+}
+
+h6 {
+    margin-top: 10px;
+    color: #fff;
+    font-size: 15px;
+}
+
+.form-content-box {
+    max-width: 600px;
+    box-shadow: rgba(0, 0, 0, 0.0980392) 0 1px 1px;
+    color: #7c7c7c;
+    margin: 30px auto;
+    text-align: center;
+    border: none;
+    box-shadow: none;
+}
+
+.form-content-box .details {
+    padding: 45px 30px;
+    background: #fff;
+    border-radius: 5px 5px 0 0;
+    opacity: 0.9;
+    border: 0px;
+    box-shadow: none;
+}
+
+.slogan p {
+    font-family: HeyBeibeh;
+    color: white;
+    font-size: 30px;
+    line-height: 1.5;
+}
+
+@media (max-width: 1200px) {}
+
+@media (max-width: 992px) {}
+
+@media (max-width: 768px) {}
+
+@media (max-width: 580px) {
+    h2 {
+        font-size: 25px;
+    }
+    h6 {
+        font-size: 12px;
+    }
+    .form-content-box {
+        max-width: 320px;
+        color: #7c7c7c;
+        margin: 0px auto;
+    }
+    .form-content-box .details {
+        padding: 8px 5px;
+    }
+    .details .btn {
+        font-size: 11px;
+        font-weight: bold;
+    }
+    .slogan p {
+        font-size: 20px;
+        line-height: 1.3;
+    }
 }

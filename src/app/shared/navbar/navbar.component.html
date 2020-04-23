@@ -88,7 +88,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                     <ng-container *ngIf="logeado">
-                        <li class="nav-item  " *ngFor="let menu of _navBar.menu">
+                        <li class="nav-item  " *ngFor="let menu of _navBarService.menuEstatico">
                             <a class="nav-link  " [ngClass]="{' dropdown-toggle':menu.submenu.length > 0}" [routerLink]="[menu.url]" routerLinkActive="active" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {{menu.titulo}}
                             </a>
@@ -115,8 +115,8 @@
                                 <i class="fa fa-bell-o" aria-hidden="true"></i>
                             </a>
                         </li>
-                        <li class="nav-item nav-item-drop dropdown " *ngFor="let menu of _navBar.panelUsuario">
-                            <a class="nav-link hvr-grow  " style="margin-top:-5px" [ngClass]="{' dropdown-toggle':menu.submenu.length > 0}" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <li class="nav-item nav-item-drop dropdown ">
+                            <a class="nav-link hvr-grow  " style="margin-top:-5px" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                                 <img [src]="usuario.img | imagen " class="profile-pic  ">
                                 <span class="nombre-perfil ocultar-grande"> 
@@ -125,11 +125,11 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-side" aria-labelledby="navbarDropdownMenuLink">
                                 <li>
-                                    <a class="dropdown-item ocultar-grande " (click)="_loginService.logout()">
+                                    <a class="dropdown-item ocultar-grande">
                                         <i class="fa fa-bell-o"></i> Notificaciones
                                     </a>
                                 </li>
-                                <li *ngFor="let submenu of menu.submenu">
+                                <li *ngFor="let submenu of menuNav.submenu">
                                     <a class="dropdown-item" [routerLink]="[submenu.url]"><i [class]="submenu.icono"></i> {{submenu.titulo}}</a>
                                 </li>
                                 <hr>

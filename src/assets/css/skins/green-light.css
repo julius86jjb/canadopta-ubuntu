@@ -640,13 +640,15 @@ li.active.btn.filtr-button.filtr {
 .btn-centro {
     color: #fff;
     background-color: #1abc9c;
-    border: 2px solid #fff;
+    border: 1px solid #fff;
+    font-weight: bold;
 }
 
 .btn-centro:hover {
     color: #fff;
     background-color: #0aa587;
-    border: 2px solid #fff;
+    border: 1px solid #fff;
+    font-weight: bold;
 }
 
 .signup-link {

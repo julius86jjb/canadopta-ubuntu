@@ -14,15 +14,18 @@ import { Usuario } from '../../models/usuario.model';
 export class NavbarComponent implements OnInit {
 
     titulo: string;
-    logeado: boolean = false;
+    logeado = false;
     usuario: Usuario;
+    menuNav: any = [];
 
-    constructor(public _navBar: NavbarService,
+    constructor(public _navBarService: NavbarService,
                     public _loginService: LoginService,
                     private router: Router,
                     private title: Title,
                     private meta: Meta) {
+
     this.logeado = this._loginService.estaLogueado();
+
     this.getTituloRuta()
         .subscribe( data => {
             // console.log(event);
@@ -36,12 +39,12 @@ export class NavbarComponent implements OnInit {
             };
             this.meta.updateTag(metaTag);
         });
-
-    this._navBar.cargarPanelUsuario();
     }
 
     ngOnInit() {
         this.usuario = this._loginService.usuario;
+        this._navBarService.cargarMenusUsuario();
+        this.menuNav = this._navBarService.menu[0];
     }
 
     getTituloRuta() {

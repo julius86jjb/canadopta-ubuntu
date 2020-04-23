@@ -8,7 +8,8 @@ import {
     UsuarioService,
     LoginService,
     LoginGuardGuard,
-    CentroService
+    CentroService,
+    AdminGuard
 } from './service.index';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -28,7 +29,8 @@ import { SubirArchivoService } from './subir-archivo/subir-archivo.service';
     LoginService,
     LoginGuardGuard,
     CentroService,
-    SubirArchivoService
+    SubirArchivoService,
+    AdminGuard
 
   ]
 })

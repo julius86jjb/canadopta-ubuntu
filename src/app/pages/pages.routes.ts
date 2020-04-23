@@ -10,6 +10,7 @@ import { HomeUsersComponent } from './home-users/home-users.component';
 import { LoginGuardGuard } from '../services/service.index';
 import { ProfileComponent } from './profile/profile.component';
 import { PanelControlComponent } from './panel-control/panel-control.component';
+import { AdminGuard } from '../services/service.index';
 
 const PagesRoutes: Routes = [
     {
@@ -33,7 +34,7 @@ const PagesRoutes: Routes = [
 
             { path: 'panel_control', component: PanelControlComponent,
                     data : {titulo: 'CanAdopta - Panel de Control'},
-                    canActivate: [LoginGuardGuard]
+                    canActivate: [LoginGuardGuard, AdminGuard]
             },
 
             { path: '', redirectTo: '/home', pathMatch: 'full' }

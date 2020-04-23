@@ -21,6 +21,7 @@ import { ModalCompletarPerfilComponent } from '../components/modal-completar-per
 import { ProfileComponent } from './profile/profile.component';
 import { PanelControlComponent } from './panel-control/panel-control.component';
 import { UsuariosComponent } from './panel-control/usuarios/usuarios.component';
+import { BuscadorComponent } from './panel-control/buscador/buscador.component';
 
 
 
@@ -36,7 +37,8 @@ import { UsuariosComponent } from './panel-control/usuarios/usuarios.component';
         ModalCompletarPerfilComponent,
         ProfileComponent,
         PanelControlComponent,
-        UsuariosComponent
+        UsuariosComponent,
+        BuscadorComponent
     ],
     exports: [
         HomeComponent,

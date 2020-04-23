@@ -3,6 +3,7 @@ import { Usuario } from 'src/app/models/usuario.model';
 import { LoginService } from 'src/app/services/service.index';
 declare function iniciar_plugins();
 import Swal from 'sweetalert2';
+import { NavbarService } from '../../services/shared/navbar.service';
 
 @Component({
   selector: 'app-profile',
@@ -13,21 +14,26 @@ export class ProfileComponent implements OnInit {
 
   usuario: Usuario;
   imagenSubir: File;
+  menuPerfil: any = [];
 
   constructor(
-    public _loginService: LoginService
+    public _loginService: LoginService,
+    public _navBarService: NavbarService
   ) {
     this.usuario = _loginService.usuario;
   }
 
   ngOnInit() {
     iniciar_plugins();
+    this._navBarService.cargarMenusUsuario();
+    this.menuPerfil = this._navBarService.menu[1];
   }
 
   guardar(usuario: Usuario) {
 
     this.usuario.nombre = usuario.nombre;
     this.usuario.apellidos = usuario.apellidos;
+    this.usuario.telefono = usuario.telefono;
 
     if (!this.usuario.google) {
       this.usuario.email = usuario.email;
@@ -77,10 +83,10 @@ export class ProfileComponent implements OnInit {
     if (file) {
       const reader = new FileReader();
       reader.onload = (evento) => {
-        console.log(evento);
+        console.log(reader.result);
         Swal.fire({
           title: 'Imagen de Perfil Actualizada!',
-          imageUrl: evento.target.result,
+          imageUrl: reader.result,
           imageAlt: 'Imagen Subida'
         });
       };
@@ -89,6 +95,10 @@ export class ProfileComponent implements OnInit {
       this.imagenSubir = file;
       this._loginService.cambiarImagen(this.imagenSubir, this.usuario._id);
     }
+  }
+
+  verificarUsuario() {
+    console.log(this.usuario.verificado);
   }
 
 

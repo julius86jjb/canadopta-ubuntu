@@ -1,0 +1,22 @@
+.container20 .btn {
+    border: none;
+    padding: 2px 8px;
+    font-size: 12px;
+    cursor: pointer;
+    display: table-cell;
+    vertical-align: middle;
+    height: 45px;
+}
+
+.container20 {
+    display: inline-block;
+    height: 45px;
+}
+
+.container20 span {
+    height: 45px;
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 13px;
+    font-weight: bold;
+}

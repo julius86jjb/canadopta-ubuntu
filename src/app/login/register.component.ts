@@ -88,8 +88,6 @@ export class RegisterComponent implements OnInit {
         this.googleInit();
 
         this.forma = new FormGroup({
-            // nombre: new FormControl(null, Validators.required ),
-            // apellidos: new FormControl(null, Validators.required ),
             email: new FormControl(null, [
                 Validators.required,
                 Validators.email,
@@ -110,7 +108,6 @@ export class RegisterComponent implements OnInit {
         const Toast = Swal.mixin({
             confirmButtonColor: '#b3c211',
         });
-        // console.log(this.forma);
         if (this.forma.invalid) {
             Toast.fire('Error', 'Corrija los errores del formulario', 'error');
             return;
@@ -122,8 +119,6 @@ export class RegisterComponent implements OnInit {
         }
 
         const usuario = new Usuario(
-            // this.forma.value.nombre,
-            // this.forma.value.apellidos,
             this.forma.value.email,
             this.forma.value.password,
             false,

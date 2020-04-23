@@ -18,7 +18,6 @@ export class HomeUsersComponent implements OnInit {
 
   ngOnInit() {
     iniciar_plugins();
-    console.log(this.usuario);
   }
 
 }
