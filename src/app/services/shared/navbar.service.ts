@@ -7,7 +7,7 @@ import { LoginService } from '../usuario/login.service';
 export class NavbarService {
 
     menuEstatico: any = [
-        { titulo: 'Inicio', url: '/home', submenu: [] },
+        { titulo: 'Inicio', url: '/dashboard', submenu: [] },
         { titulo: 'Buscar Mascotas', url: '/adopciones', submenu: [] },
         { titulo: 'Centros de Adopción', url: '/centros', submenu: [] },
         { titulo: 'Colabora', url: '/colabora', submenu: [] },

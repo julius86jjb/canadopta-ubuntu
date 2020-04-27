@@ -29,7 +29,6 @@ import { RegisterCentroComponent } from './login/register-centro.component';
 
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +38,7 @@ import { RegisterCentroComponent } from './login/register-centro.component';
     PreviousRegisterComponent,
     ComfirmarRegistroComponent,
     ConfirmarEmailComponent,
-    RegisterCentroComponent,
+    RegisterCentroComponent
 
   ],
   imports: [

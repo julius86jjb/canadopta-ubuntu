@@ -9,11 +9,13 @@ import {
     LoginService,
     LoginGuardGuard,
     CentroService,
-    AdminGuard
+    AdminGuard,
+    VerificaTokenGuard
 } from './service.index';
 
 import { HttpClientModule } from '@angular/common/http';
 import { SubirArchivoService } from './subir-archivo/subir-archivo.service';
+
 
 @NgModule({
   declarations: [],
@@ -30,7 +32,8 @@ import { SubirArchivoService } from './subir-archivo/subir-archivo.service';
     LoginGuardGuard,
     CentroService,
     SubirArchivoService,
-    AdminGuard
+    AdminGuard,
+    VerificaTokenGuard
 
   ]
 })

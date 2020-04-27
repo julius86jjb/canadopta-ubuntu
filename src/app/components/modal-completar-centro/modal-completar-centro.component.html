@@ -1,9 +1,9 @@
-<div class="fondo-negro animated fadeIn" *ngIf="!_loginService.usuario.perfil_ok && _loginService.usuario.role === 'BASICO'">
+<div class="fondo-negro animated fadeIn" *ngIf="!_centroService.centro.centro_ok && _loginService.usuario.role === 'GESTOR'">
     <div class="modal " style="display: block; " id="exampleModal " tabindex="-1 " role="dialog " aria-labelledby="exampleModalLabel " aria-hidden="true ">
-        <div class="modal-dialog " role="document ">
+        <div class="modal-dialog modal-xl " role="document ">
             <div class="modal-content ">
                 <div class="modal-header ">
-                    <h5 class="modal-title " id="exampleModalLabel "><i class="flaticon-people"></i> Completa tu perfil de usuario</h5>
+                    <h5 class="modal-title " id="exampleModalLabel "><i class="flaticon-people"></i> Completa la información del centro</h5>
                     <button (click)="oculto='oculto'" type="button " class="close " aria-label="Close ">
                         <span aria-hidden="true ">&times;</span>
                     </button>

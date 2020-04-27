@@ -6,6 +6,7 @@ import { UsuarioService } from '../services/service.index';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { LoginService } from '../services/usuario/login.service';
+import { CentroService } from '../services/centro/centro.service';
 
 declare function iniciar_plugins();
 declare const  gapi: any;
@@ -40,31 +41,31 @@ declare const  gapi: any;
     .btn-google:hover{
         background-color: #bb2416;
     }
-    h6{
-        margin-top:10px;
-        color:#fff;
 
+    h5 {
         font-size:15px;
-    }
-    h6 a{
-        margin-top:10px;
-        color:#fff;
+        margin-bottom:15px;
+    },
+    #radioBtn .notActive{
+    color: #3276b1;
+    background-color: #fff;
+    },
 
-        font-size:15px;
-        font-weight:bold;
-    }
+
 `]
 })
 export class RegisterComponent implements OnInit {
 
     forma: FormGroup;
+    forma2: FormGroup;
     cargando = false;
     auth2: any;
 
 
     constructor(
         public router: Router,
-        public _loginService: LoginService
+        public _loginService: LoginService,
+        public _centroService: CentroService
     ) { }
 
     sonIguales(campo1: string, campo2: string) {
@@ -86,6 +87,7 @@ export class RegisterComponent implements OnInit {
     ngOnInit() {
         iniciar_plugins();
         this.googleInit();
+        this.googleInitCentro();
 
         this.forma = new FormGroup({
             email: new FormControl(null, [
@@ -94,6 +96,19 @@ export class RegisterComponent implements OnInit {
 
                 Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')
             ], this.validateEmailNotTaken.bind(this) ),
+            password: new FormControl(null, [Validators.required,  Validators.minLength(6), Validators.maxLength(30)]),
+            password2: new FormControl(null, Validators.required),
+            condiciones: new FormControl(false)
+        }, { validators: [ this.sonIguales('password', 'password2')]}
+        );
+
+        this.forma2 = new FormGroup({
+            email: new FormControl(null, [
+                Validators.required,
+                Validators.email,
+
+                Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')
+            ], this.validateEmailNotTakenCentro.bind(this) ),
             password: new FormControl(null, [Validators.required,  Validators.minLength(6), Validators.maxLength(30)]),
             password2: new FormControl(null, Validators.required),
             condiciones: new FormControl(false)
@@ -131,9 +146,22 @@ export class RegisterComponent implements OnInit {
             }, (err) => this.cargando = false );
     }
 
+    registrarCentro() {
+
+    }
+
 
     validateEmailNotTaken(control: AbstractControl) {
         return this._loginService.checkEmailNotTaken(control.value)
+            .pipe(
+                map(res => {
+                    return res ? null : { emailTaken: true };
+                  })
+            );
+    }
+
+    validateEmailNotTakenCentro(control: AbstractControl) {
+        return this._centroService.checkEmailNotTaken(control.value)
             .pipe(
                 map(res => {
                     return res ? null : { emailTaken: true };
@@ -155,6 +183,19 @@ export class RegisterComponent implements OnInit {
         });
     }
 
+    googleInitCentro() {
+        gapi.load('auth2', () => {
+            this.auth2 = gapi.auth2.init({
+                clientId: '1023152870500-glc3619p64kein5ep5igdvtfhs7jngkd.apps.googleusercontent.com',
+                cookiepolicy: 'single_host_origin',
+                scope: 'profile email'
+            });
+
+            this.attachSigninCentro(document.getElementById('btnGoogle2') );
+
+        });
+    }
+
     attachSignin(element) {
         this.auth2.attachClickHandler(element, {}, (googleUser) => {
             // const profile = googleUser.getBasicProfile();
@@ -163,7 +204,7 @@ export class RegisterComponent implements OnInit {
 
             this._loginService.loginGoogle(token)
                 .subscribe( () => {
-                    console.log('hola');
+                    Swal.fire('Usuario registrado como adoptante! ', 'success');
                     this.router.navigate(['/dashboard']);
                     // Correción sugerida porque no cargaba bien el diseño del template:
                     // window.location.href = '#/dashboard';
@@ -171,6 +212,26 @@ export class RegisterComponent implements OnInit {
         });
 
     }
+
+    attachSigninCentro(element) {
+        this.auth2.attachClickHandler(element, {}, (googleUser) => {
+            // const profile = googleUser.getBasicProfile();
+
+            const token = googleUser.getAuthResponse().id_token;
+
+            this._centroService.loginGoogle(token)
+                .subscribe( () => {
+                    Swal.fire('Usuario registrado como centro de adopción! ', 'Inicie Sesión', 'success');
+                    this.router.navigate(['/dashboard']);
+                    // Correción sugerida porque no cargaba bien el diseño del template:
+                    // window.location.href = '#/dashboard';
+                });
+        });
+
+    }
+
+
+    // cambiar todo a un tipo de usuario
 
 
 }

@@ -11,30 +11,26 @@ import { LoginGuardGuard } from '../services/service.index';
 import { ProfileComponent } from './profile/profile.component';
 import { PanelControlComponent } from './panel-control/panel-control.component';
 import { AdminGuard } from '../services/service.index';
+import { VerificaTokenGuard } from '../services/guards/verifica-token.guard';
 
 const PagesRoutes: Routes = [
     {
         path: '',
         component: PagesComponent,
+        canActivate: [LoginGuardGuard, VerificaTokenGuard],
         children: [
             { path: 'adopciones', component: AdopcionesComponent, data : {titulo: 'CanAdopta - Adopciones'}  },
             { path: 'centros', component: CentrosComponent, data : {titulo: 'CanAdopta - Centros de Adopción'}  },
             { path: 'colabora', component: ColaboraComponent, data : {titulo: 'CanAdopta - Colabora'}  },
             { path: 'contacto', component: ContactoComponent, data : {titulo: 'CanAdopta - Contacto'}  },
-            { path: 'dashboard', component: HomeUsersComponent,
-                    data : {titulo: 'CanAdopta - Dashboard'},
-                    canActivate: [LoginGuardGuard]
-            },
-            { path: 'perfil', component: ProfileComponent,
-                    data : {titulo: 'CanAdopta - Perfil de Usuario'},
-                    canActivate: [LoginGuardGuard]
-            },
+            { path: 'dashboard', component: HomeUsersComponent, data : {titulo: 'CanAdopta - Dashboard'} },
+            { path: 'perfil', component: ProfileComponent, data : {titulo: 'CanAdopta - Perfil de Usuario'}},
 
             // Panel de Control
 
             { path: 'panel_control', component: PanelControlComponent,
                     data : {titulo: 'CanAdopta - Panel de Control'},
-                    canActivate: [LoginGuardGuard, AdminGuard]
+                    canActivate: [AdminGuard]
             },
 
             { path: '', redirectTo: '/home', pathMatch: 'full' }

@@ -15,7 +15,7 @@
 
 
                     <li class="nav-item">
-                        <a class="btn btn-sm btn-block btn-round signup-link" routerLink="/login">Iniciar Sesión</a>
+                        <a class="btn btn-sm btn-block btn-round signup-link hidden-mb-20" routerLink="/login">Iniciar Sesión</a>
                     </li>
 
 
@@ -33,43 +33,49 @@
     <div class="container">
         <div class="row text-center">
             <div class="col-lg-12">
-                <h2 class="text-uppercase" data-animation="animated fadeInDown delay-05s">Registro de Adoptantes</h2>
-                <h6>Este formulario es válido unicamente para el registro de nuevos usuarios que quieran adoptar. Si quiere registar un centro de adopción, haga click
+                <h2 class="text-uppercase" data-animation="animated fadeInDown delay-05s">Registro de Usuarios</h2>
+                <!-- <h6>Este formulario es válido unicamente para el registro de nuevos usuarios que quieran adoptar. Si quiere registar un centro de adopción, haga click
                     <a routerLink="/register_centro">aquí</a>
-                </h6>
+                </h6> -->
             </div>
 
         </div>
-        <div class="row">
+        <div class="row mt-4">
             <div class="col-lg-12">
+
+
+
+
                 <!-- Form content box start -->
                 <div class="form-content-box">
-                    <!-- Logo-->
-
-                    <!-- details -->
                     <div class="details">
-                        <div class="form-group mb-4">
+                        <form ngNativeValidate [formGroup]="forma" (ngSubmit)="registrarUsuario()">
 
-                            <button type="button" class="btn btn-google mb-1" style="width:100%" id="btnGoogle">
+                            <h5>Seleccione el tipo de usuario:</h5>
+                            <div class="form-group mb-4">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="tipoUsuario" id="inlineRadio1" value="option1" required>
+                                    <label class="form-check-label" for="inlineRadio1">Adoptante</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="tipoUsuario" id="inlineRadio2" value="option2" required>
+                                    <label class="form-check-label" for="inlineRadio2">Centro de adopción</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-4">
+
+                                <button type="button" class="btn btn-google mb-1" style="width:100%" id="btnGoogle">
                                 <i class="fa fa-google" aria-hidden="true"></i>
                                 Regístrate con Google
                             </button>
-                            <button routerLink="/#" type="button" class="btn btn-face" style="width:100%"> 
+                                <button routerLink="/#" type="button" class="btn btn-face" style="width:100%"> 
                                 <i aria-hidden=" true " class="fa fa-facebook-official "></i>
                                 Registrarse con facebook
                             </button>
-                        </div>
-                        <!-- Name -->
-                        <h5 class="mb-4" style="font-size: 15px;">O regístrate con tu correo eléctronico</h5>
-                        <form ngNativeValidate [formGroup]="forma" (ngSubmit)="registrarUsuario()">
-                            <!-- <div class="form-group">
-                                <input formControlName="nombre" type="text" name="nombre" class="input-text" placeholder="Nombre" required>
                             </div>
-
-                            <div class="form-group">
-                                <input formControlName="apellidos" type="text" name="apellidos" class="input-text" placeholder="Apellidos" required>
-                            </div> 
-                            <hr>-->
+                            <!-- Name -->
+                            <h5 class="mb-4">O regístrate con tu correo eléctronico</h5>
                             <div class="form-group">
                                 <input formControlName="email" type="email" name="email" class="input-text" placeholder="Email" required>
                             </div>
@@ -77,10 +83,10 @@
                             <div class="mensaje-validacion-form form-group text-right text-danger" *ngIf="forma.get('email').errors && !!forma.get('email').errors.emailTaken">
 
                                 <small>
-                                    <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-                                    Este email ya ha sido registrado!
-                                    <a routerLink="/login"><b> Inicia Sesión</b></a>
-                                </small>
+                                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                                Este email ya ha sido registrado!
+                                <a routerLink="/login"><b> Inicia Sesión</b></a>
+                            </small>
 
                             </div>
 
@@ -88,8 +94,8 @@
 
                                 <small>
                                     <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-                                     Formato de email incorrecto!
-                                   
+                                        Formato de email incorrecto!
+                                    
                                 </small>
 
                             </div>
@@ -104,7 +110,7 @@
                                 <small>
                                     <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
                                     La constraseña debe contener al menos 6 carácteres!
-                                   
+                                    
                                 </small>
 
                             </div>
@@ -113,8 +119,8 @@
 
                                 <small>
                                     <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-                                     La constraseña debe contener como máximo 20 carácteres!
-                                   
+                                        La constraseña debe contener como máximo 20 carácteres!
+                                    
                                 </small>
 
                             </div>
@@ -127,8 +133,8 @@
 
                                 <small>
                                     <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-                                     Las contraseñas no coinciden!
-                                   
+                                        Las contraseñas no coinciden!
+                                    
                                 </small>
 
                             </div>
@@ -148,13 +154,15 @@
                         </form>
                         <!-- Form end-->
                     </div>
-                    <!-- Footer -->
                     <div class="footer">
                         <span>
                             Ya eres miembro? <a  routerLink="/login">Inicia sesión</a>
                         </span>
                     </div>
+
                 </div>
+
+
                 <!-- Form content box end -->
             </div>
         </div>

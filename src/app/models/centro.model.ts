@@ -1,13 +1,12 @@
 export class Centro {
 
     constructor(
-        public nombre: string,
-        public telefono: string,
-        public usuario: string,
-        public direccion_comunidad: string,
-        public direccion_provincia: string,
+        public nombre_centro?: string,
+        public telefono?: string,
+        public direccion_comunidad?: string,
+        public direccion_provincia?: string,
         public tipoCentro?: string,
-        public email?: string,
+        public email_centro?: string,
         public telefono2?: string,
         public img?: string,
         public web?: string,
@@ -27,12 +26,7 @@ export class Centro {
         public twitter?: string,
         public youtube?: string,
         public fechaRegistro?: string,
-        public ultimaConexion?: string,
+        public centro_ok?: boolean,
         public _id?: string
     ) { }
 }
-
-
-
-
-   

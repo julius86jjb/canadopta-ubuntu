@@ -27,6 +27,26 @@ export class LoginService {
         this.cargarStorage();
     }
 
+    renuevaToken() {
+        let url = URL_SERVICIOS + '/login/renuevatoken';
+        url += '?token=' + this.token;
+
+        return this.http.get(url)
+            .pipe(
+                map( (resp: any) => {
+                    this.token = resp.token;
+                    localStorage.setItem('token', this.token);
+                    return true;
+                }),
+                catchError(err => {
+                    this.router.navigate(['/login']);
+                    Swal.fire('Error al renovar el token', 'No fue posible renovar el token', 'warning');
+                    throw err;
+                })
+            );
+    }
+
+
     cargarStorage() {
         if ( localStorage.getItem('token')) {
             this.token =  localStorage.getItem('token');
@@ -37,7 +57,6 @@ export class LoginService {
             this.usuario = null;
             this.menu = [];
         }
-
     }
 
     guardarStorage(id: string, token: string, usuario: Usuario, menu: any) {

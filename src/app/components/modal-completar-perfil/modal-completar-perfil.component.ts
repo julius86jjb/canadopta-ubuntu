@@ -44,6 +44,4 @@ export class ModalCompletarPerfilComponent implements OnInit {
           this.oculto = 'oculto';
         });
   }
-
-/// pasar crear usuario a login servive
 }
