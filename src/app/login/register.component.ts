@@ -46,10 +46,7 @@ declare const  gapi: any;
         font-size:15px;
         margin-bottom:15px;
     },
-    #radioBtn .notActive{
-    color: #3276b1;
-    background-color: #fff;
-    },
+
 
 
 `]
@@ -57,9 +54,9 @@ declare const  gapi: any;
 export class RegisterComponent implements OnInit {
 
     forma: FormGroup;
-    forma2: FormGroup;
     cargando = false;
     auth2: any;
+
 
 
     constructor(
@@ -87,7 +84,6 @@ export class RegisterComponent implements OnInit {
     ngOnInit() {
         iniciar_plugins();
         this.googleInit();
-        this.googleInitCentro();
 
         this.forma = new FormGroup({
             email: new FormControl(null, [
@@ -98,19 +94,7 @@ export class RegisterComponent implements OnInit {
             ], this.validateEmailNotTaken.bind(this) ),
             password: new FormControl(null, [Validators.required,  Validators.minLength(6), Validators.maxLength(30)]),
             password2: new FormControl(null, Validators.required),
-            condiciones: new FormControl(false)
-        }, { validators: [ this.sonIguales('password', 'password2')]}
-        );
-
-        this.forma2 = new FormGroup({
-            email: new FormControl(null, [
-                Validators.required,
-                Validators.email,
-
-                Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')
-            ], this.validateEmailNotTakenCentro.bind(this) ),
-            password: new FormControl(null, [Validators.required,  Validators.minLength(6), Validators.maxLength(30)]),
-            password2: new FormControl(null, Validators.required),
+            tipo_usuario: new FormControl(null, Validators.required),
             condiciones: new FormControl(false)
         }, { validators: [ this.sonIguales('password', 'password2')]}
         );
@@ -132,24 +116,34 @@ export class RegisterComponent implements OnInit {
             Toast.fire('Importante', 'Debe acepta las condiciones', 'warning');
             return;
         }
-
+        console.log(this.forma.value);
         const usuario = new Usuario(
             this.forma.value.email,
             this.forma.value.password,
             false,
+            this.forma.value.tipo_usuario
         );
         this.cargando = true;
         this._loginService.crearUsuario(usuario)
             .subscribe( resp => {
-                this.router.navigate(['/login']);
+                const Toast2 = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 8000,
+                    onOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer);
+                      toast.addEventListener('mouseleave', Swal.resumeTimer);
+                    }
+                });
+                Toast2.fire({
+                    icon: 'success',
+                    title: 'Usuario registrado, Inicia Sesión!'
+                    });
+                window.location.href = '#/login';
                 this.cargando = false;
             }, (err) => this.cargando = false );
     }
-
-    registrarCentro() {
-
-    }
-
 
     validateEmailNotTaken(control: AbstractControl) {
         return this._loginService.checkEmailNotTaken(control.value)
@@ -159,16 +153,6 @@ export class RegisterComponent implements OnInit {
                   })
             );
     }
-
-    validateEmailNotTakenCentro(control: AbstractControl) {
-        return this._centroService.checkEmailNotTaken(control.value)
-            .pipe(
-                map(res => {
-                    return res ? null : { emailTaken: true };
-                  })
-            );
-    }
-
 
     googleInit() {
         gapi.load('auth2', () => {
@@ -183,55 +167,71 @@ export class RegisterComponent implements OnInit {
         });
     }
 
-    googleInitCentro() {
-        gapi.load('auth2', () => {
-            this.auth2 = gapi.auth2.init({
-                clientId: '1023152870500-glc3619p64kein5ep5igdvtfhs7jngkd.apps.googleusercontent.com',
-                cookiepolicy: 'single_host_origin',
-                scope: 'profile email'
-            });
 
-            this.attachSigninCentro(document.getElementById('btnGoogle2') );
-
+    async attachSignin(element) {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 4000,
+            onOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer);
+              toast.addEventListener('mouseleave', Swal.resumeTimer);
+            }
         });
-    }
 
-    attachSignin(element) {
-        this.auth2.attachClickHandler(element, {}, (googleUser) => {
-            // const profile = googleUser.getBasicProfile();
+        this.auth2.attachClickHandler(element, {}, async (googleUser) => {
+            this._loginService.buscarUsuarios(googleUser.Qt.zu)
+                .subscribe(async (res: any) => {
+                    if (res.length ===  0 ) {
+                        const { value: color } = await Swal.fire({
+                            title: 'Perfil de usuario',
+                            text: 'Seleccione un tipo de usuario',
+                        input: 'radio',
+                            icon: 'question',
+                            inputOptions: {
+                                'BASICO': 'Adoptante',
+                                'GESTOR': 'Centro de adopción'
+                            },
+                            inputValidator: (value) => {
+                                if (!value) {
+                                return 'Debe seleccionar un tipo de usuario!';
+                                }
+                            }
+                        });
 
-            const token = googleUser.getAuthResponse().id_token;
+                        if (color) {
 
-            this._loginService.loginGoogle(token)
-                .subscribe( () => {
-                    Swal.fire('Usuario registrado como adoptante! ', 'success');
-                    this.router.navigate(['/dashboard']);
-                    // Correción sugerida porque no cargaba bien el diseño del template:
-                    // window.location.href = '#/dashboard';
+                            const token = googleUser.getAuthResponse().id_token;
+                            this._loginService.loginGoogle(token, color)
+                                .subscribe( () => {
+                                    Toast.fire({
+                                        icon: 'success',
+                                        title: 'Usuario registrado!'
+                                        });
+                                    // this.router.navigate(['/dashboard']);
+                                    // Correción sugerida porque no cargaba bien el diseño del template:
+                                    window.location.href = '#/dashboard';
+                                });
+                        }
+                    } else {
+                        const token = googleUser.getAuthResponse().id_token;
+                        this._loginService.loginGoogle(token)
+                            .subscribe( () => {
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: 'Has iniciado sesión!'
+                                    });
+                                   // this.router.navigate(['/dashboard']);
+                                // Correción sugerida porque no cargaba bien el diseño del template:
+                                window.location.href = '#/dashboard';
+                            });
+                    }
                 });
+
         });
 
     }
-
-    attachSigninCentro(element) {
-        this.auth2.attachClickHandler(element, {}, (googleUser) => {
-            // const profile = googleUser.getBasicProfile();
-
-            const token = googleUser.getAuthResponse().id_token;
-
-            this._centroService.loginGoogle(token)
-                .subscribe( () => {
-                    Swal.fire('Usuario registrado como centro de adopción! ', 'Inicie Sesión', 'success');
-                    this.router.navigate(['/dashboard']);
-                    // Correción sugerida porque no cargaba bien el diseño del template:
-                    // window.location.href = '#/dashboard';
-                });
-        });
-
-    }
-
-
-    // cambiar todo a un tipo de usuario
 
 
 }

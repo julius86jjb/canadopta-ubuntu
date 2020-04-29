@@ -68,7 +68,6 @@ export class LoginService {
         this.usuario = usuario;
         this.token = token;
         this.menu = menu;
-        console.log(this.usuario);
 
     }
 
@@ -117,15 +116,13 @@ export class LoginService {
         );
     }
 
-
-    loginGoogle(token: string) {
+    loginGoogle(token: string, role?: string) {
         const url = URL_SERVICIOS + '/login/google';
-        return this.http.post(url, {token: token})
+        return this.http.post(url, {token: token, role: role})
         .pipe(
             map((resp: any) => {
 
                 this.guardarStorage(resp.id, resp.token, resp.usuario, resp.menu);
-                console.log(resp);
                 return true;
             }),
             catchError(err => {
@@ -164,13 +161,11 @@ export class LoginService {
     }
 
     crearUsuario(usuario: Usuario) {
-
         const url = URL_SERVICIOS + '/usuario';
 
         return this.http.post(url, usuario)
             .pipe(
                 map( (resp: any) => {
-                    // Swal.fire('Usuario registrado!', usuario.email, 'success');
                     Swal.fire({
                         icon: 'success',
                         title: 'Usuario registrado!',
@@ -286,7 +281,9 @@ export class LoginService {
         const url = URL_SERVICIOS + '/busqueda/coleccion/usuarios/' + termnio;
         return this.http.get(url)
         .pipe(
-            map((resp: any) => resp.usuarios)
+            map((resp: any) => {
+                return resp.usuarios;
+            })
         );
     }
 

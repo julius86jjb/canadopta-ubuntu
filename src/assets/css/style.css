@@ -321,27 +321,27 @@ button:focus {
 }
 
 .btn-block {
-    background: #2f2f2f;
+    /* background: #2f2f2f; */
 }
 
 .btn-block i {
-    color: #fff;
+    /* color: #fff; */
 }
 
 .btn-block-outline {
-    color: #FFF;
+    /* color: #FFF;
     background: transparent;
     border: solid 2px #FFF !important;
     text-transform: uppercase;
     font-weight: 600;
     padding: 5px 18px !important;
-    font-size: 12px;
+    font-size: 12px; */
 }
 
 .btn-block-outline:hover {
-    background: #2f2f2f;
+    /* background: #2f2f2f;
     border: solid 2px #2f2f2f !important;
-    color: #FFF;
+    color: #FFF; */
 }
 
 .pricing-btn {

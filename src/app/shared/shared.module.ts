@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { PipesModule } from '../pipes/pipes.module';
+import { FooterComponent } from './footer/footer.component';
 
 
 @NgModule({
@@ -23,12 +24,14 @@ import { PipesModule } from '../pipes/pipes.module';
         HeaderComponent,
         NavbarComponent,
         BigfooterComponent,
+        FooterComponent
     ],
     exports: [
         NopagefoundComponent,
         HeaderComponent,
         NavbarComponent,
         BigfooterComponent,
+        FooterComponent
     ]
 })
 

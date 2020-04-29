@@ -61,7 +61,7 @@ export class CentroService {
 
             .pipe(
                 map( (resp: any) => {
-                    Swal.fire('Centro registrado! ', centro.nombre, 'success');
+                    Swal.fire('Centro registrado!', 'success');
                     this.centro =  resp.centro;
                     return resp.centro;
                 }),
