@@ -1,28 +1,41 @@
-<div class="fondo-negro animated fadeIn" *ngIf="!_loginService.usuario.perfil_ok && _loginService.usuario.role === 'BASICO'">
+<div class="fondo-negro animated fadeIn" *ngIf="!_loginService.usuario.perfil_ok  && _loginService.usuario.role === 'BASICO' ">
     <div class="modal " style="display: block; " id="exampleModal " tabindex="-1 " role="dialog " aria-labelledby="exampleModalLabel " aria-hidden="true ">
-        <div class="modal-dialog " role="document ">
-            <div class="modal-content ">
+        <div class="modal-dialog modal-lg" role="document ">
+            <div class="modal-content my-address ">
                 <div class="modal-header ">
-                    <h5 class="modal-title " id="exampleModalLabel "><i class="flaticon-people"></i> Completa tu perfil de usuario</h5>
+                    <h5 class="modal-title " id="exampleModalLabel ">Crea tu perfil</h5>
                 </div>
-                <div class="modal-body ">
-                    <form ngNativeValidate #f="ngForm">
+                <form ngNativeValidate #f="ngForm" (ngSubmit)="guardarCambios(f.value)">
+                    <div class="modal-body ">
+
                         <div class="form-group ">
-                            <label for="nombre " class="col-form-label ">Nombre:</label>
-                            <input [ngModel]="usuario.nombre" name="nombre" type="text " class="form-control " required>
-
-
+                            <span>Rellena el siguiente formulario con tu nombre y tus apellidos</span>
                         </div>
-                        <div class="form-group ">
-                            <label for="apellidos " class="col-form-label ">Apellidos:</label>
-                            <input [ngModel]="usuario.apellidos" name="apellidos" type="text " class="form-control " required>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer ">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group ">
+                                    <label for="nombre " class="col-form-label ">Nombre:</label>
+                                    <input [ngModel]="usuario.nombre" name="nombre" type="text " class="form-control input-text" required>
 
-                    <button type="submit" (click)="guardarCambios(f.value)" class="btn color-tema " [disabled]="!f.valid">Guardar Cambios</button>
-                </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group ">
+                                    <label for="apellidos " class="col-form-label ">Apellidos:</label>
+                                    <input [ngModel]="usuario.apellidos" name="apellidos" type="text " class="form-control input-text" required>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <div class="modal-footer ">
+
+                        <button type="submit" class="btn btn-theme" [disabled]="!f.valid">Crear perfil</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

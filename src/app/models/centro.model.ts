@@ -1,6 +1,7 @@
 export class Centro {
 
     constructor(
+        public usuario?: string,
         public nombre_centro?: string,
         public telefono?: string,
         public direccion_comunidad?: string,

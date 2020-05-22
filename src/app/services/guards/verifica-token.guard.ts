@@ -11,7 +11,6 @@ export class VerificaTokenGuard implements CanActivate {
 
 
     constructor( public _loginService: LoginService,
-            public _centroService: CentroService,
               public router: Router) {
 
     }
@@ -19,10 +18,8 @@ export class VerificaTokenGuard implements CanActivate {
     canActivate():  Promise<boolean> | boolean {
 
 
-      let token = this._loginService.token;
-      if (token === null) {
-          token = this._centroService.token;
-      }
+      const token = this._loginService.token;
+
 
       const payload = JSON.parse( atob( token.split('.')[1] ));
 

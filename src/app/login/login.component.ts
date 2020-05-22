@@ -58,7 +58,8 @@ export class LoginComponent implements OnInit {
         });
 
         this.auth2.attachClickHandler(element, {}, async (googleUser) => {
-            this._loginService.buscarUsuarios(googleUser.Qt.zu)
+            console.log(googleUser);
+            this._loginService.buscarUsuarios(googleUser.Ut.Eu)
                 .subscribe(async (res: any) => {
                     if (res.length ===  0 ) {
                         const { value: color } = await Swal.fire({
@@ -85,7 +86,7 @@ export class LoginComponent implements OnInit {
                                     Toast.fire({
                                         icon: 'success',
                                         title: 'Usuario registrado!'
-                                        });
+                                    });
                                     // this.router.navigate(['/dashboard']);
                                     // Correción sugerida porque no cargaba bien el diseño del template:
                                     window.location.href = '#/dashboard';

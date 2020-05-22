@@ -1,0 +1,43 @@
+    .modal-header {
+        /* border-bottom: 0 none; */
+    }
+    
+    .modal-footer {
+        border-top: 0 none;
+    }
+    
+    .modal-title {
+        font-weight: 600;
+        font-size: 24px;
+    }
+    
+    .modal-body {
+        padding-top: 10px;
+    }
+    
+    .modal-dialog {
+        overflow-y: initial !important
+    }
+    
+    .modal-body {
+        max-height: 450px;
+        overflow-y: auto;
+    }
+    
+    .oculto {
+        display: none
+    }
+    
+    .my-address form label {
+        font-weight: bold;
+    }
+    
+    .form-group label,
+    .checkbox label {
+        font-weight: 600 !important;
+        color: #575656;
+    }
+    
+    .submit-address .search-fields {
+        color: #7b7b7b;
+    }

@@ -102,7 +102,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   guardarUsuario(usuario: Usuario) {
-    this._loginService.actualizarUsuario2(usuario)
+    this._loginService.actualizarUsuario(usuario)
       .subscribe();
   }
 

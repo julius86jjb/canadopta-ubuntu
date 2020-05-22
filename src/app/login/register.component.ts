@@ -35,12 +35,7 @@ declare const  gapi: any;
     .mensaje-validacion-form small{
         font-size: 11px;
     }
-    .btn-google{
-        background-color: #dc4e41;
-    }
-    .btn-google:hover{
-        background-color: #bb2416;
-    }
+
 
     h5 {
         font-size:15px;
@@ -62,7 +57,6 @@ export class RegisterComponent implements OnInit {
     constructor(
         public router: Router,
         public _loginService: LoginService,
-        public _centroService: CentroService
     ) { }
 
     sonIguales(campo1: string, campo2: string) {

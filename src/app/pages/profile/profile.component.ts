@@ -40,8 +40,24 @@ export class ProfileComponent implements OnInit {
     }
 
 
-    this._loginService.actualizarUsuario2(this.usuario)
-      .subscribe();
+    this._loginService.actualizarUsuario(this.usuario)
+      .subscribe( resp => {
+        console.log(resp);
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 5000,
+          onOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+          }
+        });
+        Toast.fire({
+          icon: 'success',
+          title: 'Usuario actualizado!'
+        });
+      });
   }
 
   seleccionImagen(archivo: File) {

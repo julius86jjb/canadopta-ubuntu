@@ -12,6 +12,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { PanelControlComponent } from './panel-control/panel-control.component';
 import { AdminGuard } from '../services/service.index';
 import { VerificaTokenGuard } from '../services/guards/verifica-token.guard';
+import { CentroComponent } from './centros/centro.component';
 
 const PagesRoutes: Routes = [
     {
@@ -25,6 +26,7 @@ const PagesRoutes: Routes = [
             { path: 'contacto', component: ContactoComponent, data : {titulo: 'CanAdopta - Contacto'}  },
             { path: 'dashboard', component: HomeUsersComponent, data : {titulo: 'CanAdopta - Dashboard'} },
             { path: 'perfil', component: ProfileComponent, data : {titulo: 'CanAdopta - Perfil de Usuario'}},
+            { path: 'centro/:id', component: CentroComponent, data : {titulo: 'CanAdopta - Centro de Adopción'}  },
 
             // Panel de Control
 

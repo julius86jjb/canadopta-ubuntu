@@ -131,8 +131,8 @@ export class LoginService {
 
                     Swal.fire({
                         icon: 'error',
-                        title: 'Error - Inicie sesión sin google',
-                        text: 'Ya existe una cuenta asociada a esa dirección de email, inicie sesión sin google',
+                        title: 'Error al iniciar sesión',
+                        text: 'Ya existe una cuenta asociada a esa dirección de email. Inicie sesión sin google',
                         confirmButtonText: 'Aceptar',
                         confirmButtonColor: '#b3c211'
                     });
@@ -206,45 +206,11 @@ export class LoginService {
                         const usuarioDB: Usuario = resp.usuario;
                         this.guardarStorage(usuarioDB._id, this.token, usuarioDB, this.menu);
                     }
-
-                    Swal.fire({
-                        title: 'Bienvenido a CanaAdopta!',
-                        imageUrl: '../../../../assets/img/port3.jpg',
-                        imageWidth: 800,
-                        confirmButtonColor: '#1abc9c',
-                        confirmButtonText: 'Comenzar'
-                      });
-
-                    return true;
+                    return resp.usuario;
                 })
             );
     }
 
-    actualizarUsuario2(usuario: Usuario) {
-        let url = URL_SERVICIOS + '/usuario/' + usuario._id;
-
-        url += '?token=' + this.token;
-
-        return this.http.put(url, usuario)
-            .pipe(
-                map( (resp: any) => {
-
-                    if (usuario._id === this.usuario._id) {
-                        const usuarioDB: Usuario = resp.usuario;
-                        this.guardarStorage(usuarioDB._id, this.token, usuarioDB, this.menu);
-                    }
-
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Usuario actualizado!',
-                        confirmButtonText: 'Aceptar',
-                        confirmButtonColor: '#1abc9c'
-                    });
-
-                    return true;
-                })
-            );
-    }
     checkEmailNotTaken(email: string) {
         const url = URL_SERVICIOS + '/usuario/verificaEmailDisponible/' + email;
         return this.http.get(url)
@@ -277,8 +243,8 @@ export class LoginService {
         return this.http.get(url);
     }
 
-    buscarUsuarios(termnio: string) {
-        const url = URL_SERVICIOS + '/busqueda/coleccion/usuarios/' + termnio;
+    buscarUsuarios(termino: string) {
+        const url = URL_SERVICIOS + '/busqueda/coleccion/usuarios/' + termino;
         return this.http.get(url)
         .pipe(
             map((resp: any) => {

@@ -11,13 +11,12 @@ import { CentroService } from '../centro/centro.service';
 export class LoginGuardGuard implements CanActivate {
 
     constructor( public _loginService: LoginService,
-        public _centroService: CentroService,
         public router: Router) {
 
     }
 
     canActivate() {
-        if (this._loginService.estaLogueado() || this._centroService.estaLogueado())  {
+        if (this._loginService.estaLogueado() )  {
             return true;
         } else {
             this.router.navigate(['/login']);

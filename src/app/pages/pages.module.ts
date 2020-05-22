@@ -23,6 +23,8 @@ import { PanelControlComponent } from './panel-control/panel-control.component';
 import { UsuariosComponent } from './panel-control/usuarios/usuarios.component';
 import { BuscadorComponent } from './panel-control/buscador/buscador.component';
 import { ModalCompletarCentroComponent } from '../components/modal-completar-centro/modal-completar-centro.component';
+import { TarjetaCentroComponent } from './centros/tarjeta-centro.component';
+import { CentroComponent } from './centros/centro.component';
 
 
 
@@ -40,7 +42,9 @@ import { ModalCompletarCentroComponent } from '../components/modal-completar-cen
         PanelControlComponent,
         UsuariosComponent,
         BuscadorComponent,
-        ModalCompletarCentroComponent
+        ModalCompletarCentroComponent,
+        TarjetaCentroComponent,
+        CentroComponent
     ],
     exports: [
         HomeComponent,

@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, AbstractControl, NgForm } from '@an
 import { LoginService } from '../../services/usuario/login.service';
 import { Usuario } from '../../models/usuario.model';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -23,15 +24,7 @@ export class ModalCompletarPerfilComponent implements OnInit {
 
   }
 
-  ngOnInit() {
-
-
-    this.forma = new FormGroup({
-      nombre: new FormControl(null, Validators.required ),
-      apellidos: new FormControl(null, Validators.required ),
-
-    });
-  }
+  ngOnInit() {}
 
 
   guardarCambios(usuario: Usuario) {
@@ -41,7 +34,13 @@ export class ModalCompletarPerfilComponent implements OnInit {
     this._loginService.actualizarUsuario(this.usuario)
         // tslint:disable-next-line: deprecation
         .subscribe( resp => {
-          this.oculto = 'oculto';
+          Swal.fire({
+            title: 'Bienvenido a CanaAdopta!',
+            imageUrl: '../../../../assets/img/port3.jpg',
+            imageWidth: 800,
+            confirmButtonColor: '#1abc9c',
+            confirmButtonText: 'Comenzar'
+          });
         });
   }
 }
