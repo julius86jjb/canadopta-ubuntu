@@ -1,0 +1,36 @@
+#propertiesDetailsSlider .carousel-inner .carousel-item img {
+    width: 730px;
+    height: 486px;
+}
+
+.megusta i {
+    text-transform: none;
+    color: white;
+}
+
+.megusta {
+    text-transform: inherit;
+    font-size: 10px;
+}
+
+.opening-hours {
+    padding: 30px;
+}
+
+.opening-hours .list-style-none li {
+    list-style: none;
+    line-height: 35px;
+    font-size: 13px;
+}
+
+.opening-hours strong {
+    width: 85px;
+    display: inline-block;
+    font-weight: 600;
+}
+
+.opening-hours h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 20px;
+}

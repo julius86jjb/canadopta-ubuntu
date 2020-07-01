@@ -1,5 +1,7 @@
+<div class="page_loader" *ngIf="cargando"></div>
+
 <!-- Properties details page start -->
-<div class="properties-details-page content-area-7">
+<div class="properties-details-page content-area-7" *ngIf="!cargando">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-12 col-xs-12">
@@ -10,12 +12,21 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="pull-left">
-                                        <h3>{{centro.nombre_centro}}</h3>
-                                        <p><i class="fa fa-map-marker"></i> {{centro.direccion_calle}} {{centro.direccion_numero}}, {{centro.direccion_provincia}}, {{centro.direccion_comunidad}} {{centro.direccion_CP}}</p>
+                                        <h3>{{centro?.nombre_centro}}</h3>
+                                        <p><i class="fa fa-map-marker"></i> {{centro?.direccion_calle}} {{centro?.direccion_numero}}, {{centro?.direccion_provincia}}, {{centro?.direccion_comunidad}} {{centro?.direccion_CP}}</p>
+                                        <p>
+                                            <span><i class="lnr lnr-thumbs-up"></i> {{centro?.likes}}</span>
+                                        </p>
                                     </div>
                                     <div class="pull-right">
-                                        <h3><span class="text-right">{{centro.totalAdoptables}} mascotas en adopción</span></h3>
-                                        <p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></p>
+                                        <h3><span class="text-right">{{centro?.totalAdoptables}} mascotas en adopción</span></h3>
+                                        <p class="megusta">
+                                            <button *ngIf="!this.likedCentro()" type="button" class="btn btn-primary bomd-2" (click)="likeClick()"><i class="lnr lnr-thumbs-up"></i> Me gusta</button>
+                                            <button *ngIf="this.likedCentro()" type="button" class="btn btn-outline-primary bomd-2" (click)="unlikeClick()"><i style="color:blue" class="lnr lnr-thumbs-up"></i> Te gusta</button>
+                                            <button type="button" class="btn btn-info bomd-2 ml-1"><i class="fa fa-user-plus" aria-hidden="true"></i> Seguir</button>
+                                            <button type="button" class="btn btn-secondary bomd-2 ml-1"><i class="fa fa-share-alt" aria-hidden="true"></i></button>
+                                        </p>
+
                                     </div>
                                 </div>
                             </div>
@@ -23,11 +34,15 @@
                         <!-- Heading properties end -->
 
                         <!-- main slider carousel items -->
-                        <div class="carousel-inner">
+                        <div class="carousel-inner" *ngIf="!cargando">
+
                             <div class="active item carousel-item" data-slide-number="0">
-                                <img src="http://placehold.it/730x486" class="img-fluid" alt="slider-properties">
+                                <img [src]="centro?.galeria[0] | imagen: 'centro' " class="img-fluid" alt="slider-properties">
                             </div>
-                            <div class="item carousel-item" data-slide-number="1">
+                            <div *ngFor="let foto of centro.galeria | slice:1; let i = index" class="item carousel-item" [attr.data-slide-number]="i">
+                                <img [src]="foto | imagen: 'centro' " class="img-fluid" alt="slider-properties">
+                            </div>
+                            <!-- <div class="item carousel-item" data-slide-number="1">
                                 <img src="http://placehold.it/730x486" class="img-fluid" alt="slider-properties">
                             </div>
                             <div class="item carousel-item" data-slide-number="2">
@@ -38,7 +53,7 @@
                             </div>
                             <div class="item carousel-item" data-slide-number="5">
                                 <img src="http://placehold.it/730x486" class="img-fluid" alt="slider-properties">
-                            </div>
+                            </div> -->
                             <a class="carousel-control left" href="#propertiesDetailsSlider" data-slide="prev"><i class="fa fa-angle-left"></i></a>
                             <a class="carousel-control right" href="#propertiesDetailsSlider" data-slide="next"><i class="fa fa-angle-right"></i></a>
                         </div>
@@ -47,24 +62,23 @@
                     <!-- Tabbing box start -->
                     <div class="tabbing tabbing-box mb-40">
                         <ul class="nav nav-tabs" id="carTab" role="tablist">
+
                             <li class="nav-item">
-                                <a class="nav-link active show" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="one" aria-selected="false">Detalles</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="two" aria-selected="false">Descripción</a>
+                                <a class="nav-link active" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="two" aria-selected="false">Descripción</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true">Preoceso de Adopción</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="4-tab" data-toggle="tab" href="#4" role="tab" aria-controls="4" aria-selected="true">Mapa</a>
+                                <a class="nav-link" id="4-tab" data-toggle="tab" href="#4" role="tab" aria-controls="4" aria-selected="true">Localización</a>
                             </li>
+
                             <li class="nav-item">
-                                <a class="nav-link" id="6-tab" data-toggle="tab" href="#6" role="tab" aria-controls="6" aria-selected="true">Mascotas en Adopción</a>
+                                <a class="nav-link  show" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="one" aria-selected="false">Detalles</a>
                             </li>
                         </ul>
                         <div class="tab-content" id="carTabContent">
-                            <div class="tab-pane fade active show" id="one" role="tabpanel" aria-labelledby="one-tab">
+                            <div class="tab-pane fade " id="one" role="tabpanel" aria-labelledby="one-tab">
                                 <div class="property-details mb-40">
                                     <h3 class="heading-2">Información del centro</h3>
                                     <div class="row">
@@ -125,7 +139,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="two" role="tabpanel" aria-labelledby="two-tab">
+                            <div class="tab-pane fade active show" id="two" role="tabpanel" aria-labelledby="two-tab">
                                 <div class="properties-description mb-50">
                                     <h3 class="heading-2">
                                         Description
@@ -146,278 +160,157 @@
                                 <div class="location mb-50">
                                     <div class="map">
                                         <h3 class="heading-2">Mapa</h3>
-                                        <div id="map" class="contact-map"></div>
+                                        <google-map height="400" width="100%" [zoom]="zoom" [center]="center" [options]="options">
+                                            <map-marker [position]="center"></map-marker>
+                                        </google-map>
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade " id="6" role="tabpanel" aria-labelledby="6-tab">
-                                <div class="similar-properties mb-30">
-                                    <h3 class="heading-2">Similar Properties</h3>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="property-box">
-                                                <div class="property-thumbnail">
-                                                    <a href="properties-details.html" class="property-img">
-                                                        <div class="listing-badges">
-                                                            <span class="featured">Featured</span>
-                                                        </div>
-                                                        <div class="price-ratings-box">
-                                                            <p class="price">
-                                                                $178,000
-                                                            </p>
-                                                            <div class="ratings">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star-o"></i>
-                                                            </div>
-                                                        </div>
 
-                                                        <div id="carouselExampleIndicators1" class="carousel slide" data-ride="carousel">
-                                                            <ol class="carousel-indicators">
-                                                                <li data-target="#carouselExampleIndicators1" data-slide-to="0" class="active"></li>
-                                                                <li data-target="#carouselExampleIndicators1" data-slide-to="1"></li>
-                                                                <li data-target="#carouselExampleIndicators1" data-slide-to="2"></li>
-                                                            </ol>
-                                                            <div class="carousel-inner">
-                                                                <div class="carousel-item active">
-                                                                    <img class="d-block w-100" src="http://placehold.it/350x233" alt="properties">
-                                                                </div>
-                                                                <div class="carousel-item">
-                                                                    <img class="d-block w-100" src="http://placehold.it/350x233" alt="properties">
-                                                                </div>
-                                                                <div class="carousel-item">
-                                                                    <img class="d-block w-100" src="http://placehold.it/350x233" alt="properties">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                                <div class="detail">
-                                                    <h1 class="title">
-                                                        <a href="properties-details.html">Modern Family Home</a>
-                                                    </h1>
-                                                    <div class="location">
-                                                        <a href="properties-details.html">
-                                                            <i class="fa fa-map-marker"></i>123 Kathal St. Tampa City,
-                                                        </a>
-                                                    </div>
-                                                    <ul class="facilities-list clearfix">
-                                                        <li>
-                                                            <i class="flaticon-furniture"></i> 3 Bedrooms
-                                                        </li>
-                                                        <li>
-                                                            <i class="flaticon-holidays"></i> 2 Bathrooms
-                                                        </li>
-                                                        <li>
-                                                            <i class="flaticon-square"></i> Sq Ft:3400
-                                                        </li>
-                                                        <li>
-                                                            <i class="flaticon-vehicle"></i> 1 Garage
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="footer clearfix">
-                                                    <div class="pull-left days">
-                                                        <p><i class="flaticon-time"></i> 5 Days ago</p>
-                                                    </div>
-                                                    <ul class="pull-right">
-                                                        <li><a href="#"><i class="flaticon-favorite"></i></a></li>
-                                                        <li><a href="#"><i class="flaticon-multimedia"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="property-box">
-                                                <div class="property-thumbnail">
-                                                    <a href="properties-details.html" class="property-img">
-                                                        <div class="listing-badges">
-                                                            <span class="featured">Featured</span>
-                                                        </div>
-                                                        <div class="price-ratings-box">
-                                                            <p class="price">
-                                                                $178,000
-                                                            </p>
-                                                            <div class="ratings">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star-o"></i>
-                                                            </div>
-                                                        </div>
-                                                        <img class="d-block w-100" src="http://placehold.it/350x233" alt="properties">
-                                                    </a>
-                                                </div>
-                                                <div class="detail">
-                                                    <h1 class="title">
-                                                        <a href="properties-details.html">Relaxing Apartment</a>
-                                                    </h1>
-                                                    <div class="location">
-                                                        <a href="properties-details.html">
-                                                            <i class="fa fa-map-marker"></i>123 Kathal St. Tampa City,
-                                                        </a>
-                                                    </div>
-                                                    <ul class="facilities-list clearfix">
-                                                        <li>
-                                                            <i class="flaticon-furniture"></i> 3 Bedrooms
-                                                        </li>
-                                                        <li>
-                                                            <i class="flaticon-holidays"></i> 2 Bathrooms
-                                                        </li>
-                                                        <li>
-                                                            <i class="flaticon-square"></i> Sq Ft:3400
-                                                        </li>
-                                                        <li>
-                                                            <i class="flaticon-vehicle"></i> 1 Garage
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="footer clearfix">
-                                                    <div class="pull-left days">
-                                                        <p><i class="flaticon-time"></i> 5 Days ago</p>
-                                                    </div>
-                                                    <ul class="pull-right">
-                                                        <li><a href="#"><i class="flaticon-favorite"></i></a></li>
-                                                        <li><a href="#"><i class="flaticon-multimedia"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
 
-                    <!-- Properties condition start -->
-                    <div class="properties-condition mb-40">
-                        <h3 class="heading-2">
-                            Contacto
-                        </h3>
+                    <div class="similar-properties mb-30">
+                        <h3 class="heading-2">Mascotas en adopción</h3>
                         <div class="row">
-                            <div class="col-md-3 col-sm-3 col-xs-12">
-                                <ul class="condition">
-                                    <li>
-                                        <i class="lnr lnr-phone"></i>{{centro.telefono}}
-                                    </li>
-                                    <li>
-                                        <i class="lnr lnr-phone-handset"></i>{{centro.telefono2}}
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-md-5 col-sm-5 col-xs-12 text">
-                                <ul class="condition">
-                                    <li>
-                                        <i class="fa fa-envelope-o"></i>{{centro.email_centro}}
-                                    </li>
-                                    <li>
-                                        <i class="lnr lnr-earth"></i>{{centro.web}}
-                                    </li>
+                            <div class="col-md-6">
+                                <div class="property-box">
+                                    <div class="property-thumbnail">
+                                        <a href="properties-details.html" class="property-img">
+                                            <div class="listing-badges">
+                                                <span class="featured">Featured</span>
+                                            </div>
+                                            <div class="price-ratings-box">
+                                                <p class="price">
+                                                    $178,000
+                                                </p>
+                                                <div class="ratings">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                </div>
+                                            </div>
 
-                                </ul>
+                                            <div id="carouselExampleIndicators1" class="carousel slide" data-ride="carousel">
+                                                <ol class="carousel-indicators">
+                                                    <li data-target="#carouselExampleIndicators1" data-slide-to="0" class="active"></li>
+                                                    <li data-target="#carouselExampleIndicators1" data-slide-to="1"></li>
+                                                    <li data-target="#carouselExampleIndicators1" data-slide-to="2"></li>
+                                                </ol>
+                                                <div class="carousel-inner">
+                                                    <div class="carousel-item active">
+                                                        <img class="d-block w-100" src="http://placehold.it/350x233" alt="properties">
+                                                    </div>
+                                                    <div class="carousel-item">
+                                                        <img class="d-block w-100" src="http://placehold.it/350x233" alt="properties">
+                                                    </div>
+                                                    <div class="carousel-item">
+                                                        <img class="d-block w-100" src="http://placehold.it/350x233" alt="properties">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="detail">
+                                        <h1 class="title">
+                                            <a href="properties-details.html">Modern Family Home</a>
+                                        </h1>
+                                        <div class="location">
+                                            <a href="properties-details.html">
+                                                <i class="fa fa-map-marker"></i>123 Kathal St. Tampa City,
+                                            </a>
+                                        </div>
+                                        <ul class="facilities-list clearfix">
+                                            <li>
+                                                <i class="flaticon-furniture"></i> 3 Bedrooms
+                                            </li>
+                                            <li>
+                                                <i class="flaticon-holidays"></i> 2 Bathrooms
+                                            </li>
+                                            <li>
+                                                <i class="flaticon-square"></i> Sq Ft:3400
+                                            </li>
+                                            <li>
+                                                <i class="flaticon-vehicle"></i> 1 Garage
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="footer clearfix">
+                                        <div class="pull-left days">
+                                            <p><i class="flaticon-time"></i> 5 Days ago</p>
+                                        </div>
+                                        <ul class="pull-right">
+                                            <li><a href="#"><i class="flaticon-favorite"></i></a></li>
+                                            <li><a href="#"><i class="flaticon-multimedia"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
-
+                            <div class="col-md-6">
+                                <div class="property-box">
+                                    <div class="property-thumbnail">
+                                        <a href="properties-details.html" class="property-img">
+                                            <div class="listing-badges">
+                                                <span class="featured">Featured</span>
+                                            </div>
+                                            <div class="price-ratings-box">
+                                                <p class="price">
+                                                    $178,000
+                                                </p>
+                                                <div class="ratings">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                </div>
+                                            </div>
+                                            <img class="d-block w-100" src="http://placehold.it/350x233" alt="properties">
+                                        </a>
+                                    </div>
+                                    <div class="detail">
+                                        <h1 class="title">
+                                            <a href="properties-details.html">Relaxing Apartment</a>
+                                        </h1>
+                                        <div class="location">
+                                            <a href="properties-details.html">
+                                                <i class="fa fa-map-marker"></i>123 Kathal St. Tampa City,
+                                            </a>
+                                        </div>
+                                        <ul class="facilities-list clearfix">
+                                            <li>
+                                                <i class="flaticon-furniture"></i> 3 Bedrooms
+                                            </li>
+                                            <li>
+                                                <i class="flaticon-holidays"></i> 2 Bathrooms
+                                            </li>
+                                            <li>
+                                                <i class="flaticon-square"></i> Sq Ft:3400
+                                            </li>
+                                            <li>
+                                                <i class="flaticon-vehicle"></i> 1 Garage
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="footer clearfix">
+                                        <div class="pull-left days">
+                                            <p><i class="flaticon-time"></i> 5 Days ago</p>
+                                        </div>
+                                        <ul class="pull-right">
+                                            <li><a href="#"><i class="flaticon-favorite"></i></a></li>
+                                            <li><a href="#"><i class="flaticon-multimedia"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <!-- Properties condition end -->
-
-
-                    <h3 class="heading-2">Comments Section</h3>
-                    <!-- Comments start -->
-                    <ul class="comments">
-                        <li>
-                            <div class="comment">
-                                <div class="comment-author">
-                                    <a href="#">
-                                        <img src="http://placehold.it/60x60" alt="comments-user">
-                                    </a>
-                                </div>
-                                <div class="comment-content">
-                                    <div class="comment-meta">
-                                        <h3>
-                                            Maikel Alisa
-                                        </h3>
-                                        <div class="comment-meta">
-                                            8:42 PM 1/28/2017<a href="#">Reply</a>
-                                        </div>
-                                    </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam. Aliquam gravida massa at sem vulputate interdum et vel eros. Maecenas eros enim.</p>
-                                </div>
-                            </div>
-                            <ul>
-                                <li>
-                                    <div class="comment">
-                                        <div class="comment-author">
-                                            <a href="#">
-                                                <img src="http://placehold.it/60x60" alt="comments-user">
-                                            </a>
-                                        </div>
-                                        <div class="comment-content">
-                                            <div class="comment-meta">
-                                                <h3>
-                                                    Karen Paran
-                                                </h3>
-                                                <div class="comment-meta">
-                                                    8:42 PM 1/28/2017<a href="#">Reply</a>
-                                                </div>
-                                            </div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam. Aliquam gravida massa at sem vulputate interdum et vel eros.</p>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <div class="comment">
-                                <div class="comment-author">
-                                    <a href="#">
-                                        <img src="http://placehold.it/60x60" alt="comments-user">
-                                    </a>
-                                </div>
-                                <div class="comment-content">
-                                    <div class="comment-meta">
-                                        <h3>
-                                            Anne Brady
-                                        </h3>
-                                        <div class="comment-meta">
-                                            8:42 PM 1/28/2017<a href="#">Reply</a>
-                                        </div>
-                                    </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam. Aliquam gravida massa at sem vulputate interdum et vel eros. Maecenas eros enim.</p>
-                                </div>
-                            </div>
-                            <ul>
-                                <li>
-                                    <div class="comment mb-0 mp-heden">
-                                        <div class="comment-author">
-                                            <a href="#">
-                                                <img src="http://placehold.it/60x60" alt="comments-user">
-                                            </a>
-                                        </div>
-                                        <div class="comment-content mrg-bdr">
-                                            <div class="comment-meta">
-                                                <h3>
-                                                    Jane Doe
-                                                </h3>
-                                                <div class="comment-meta">
-                                                    8:42 PM 1/28/2017<a href="#">Reply</a>
-                                                </div>
-                                            </div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam. Aliquam gravida massa at sem vulputate interdum et vel eros.</p>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <!-- Comments end -->
-
                     <!-- Contact 1 start -->
                     <div class="contact-1 mtb-50">
-                        <h3 class="heading">Contact Form</h3>
+                        <h3 class="heading">Formulario de contacto</h3>
                         <form action="#" method="GET" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -458,179 +351,38 @@
             </div>
             <div class="col-lg-4 col-md-12">
                 <div class="sidebar-left">
-                    <!-- Advanced search start -->
-                    <div class="widget search-area advanced-search d-none d-xl-block d-lg-block">
-                        <h3 class="sidebar-title">Advanced Search</h3>
-                        <form method="GET">
-                            <div class="form-group">
-                                <select class="selectpicker search-fields" name="all-status">
-                                    <option>All Status</option>
-                                    <option>For Sale</option>
-                                    <option>For Rent</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <select class="selectpicker search-fields" name="all-type">
-                                    <option>All Type</option>
-                                    <option>Apartments</option>
-                                    <option>Houses</option>
-                                    <option>Commercial</option>
-                                    <option>Garages</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <select class="selectpicker search-fields" name="commercial">
-                                    <option>Commercial</option>
-                                    <option>Residential</option>
-                                    <option>Land</option>
-                                    <option>Hotels</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <select class="selectpicker search-fields" name="location">
-                                    <option>location</option>
-                                    <option>New York</option>
-                                    <option>Bangladesh</option>
-                                    <option>India</option>
-                                    <option>Canada</option>
-                                </select>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <select class="selectpicker search-fields" name="bedrooms">
-                                            <option>Bedrooms</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <select class="selectpicker search-fields" name="bathroom">
-                                            <option>Bathroom</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <select class="selectpicker search-fields" name="balcony">
-                                            <option>Balcony</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <select class="selectpicker search-fields" name="garage">
-                                            <option>Garage</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="range-slider">
-                                <label>Area</label>
-                                <div data-min="0" data-max="10000" data-min-name="min_area" data-max-name="max_area" data-unit="Sq ft" class="range-slider-ui ui-slider" aria-disabled="false"></div>
-                                <div class="clearfix"></div>
-                            </div>
 
-                            <div class="range-slider">
-                                <label>Price</label>
-                                <div data-min="0" data-max="150000" data-min-name="min_price" data-max-name="max_price" data-unit="USD" class="range-slider-ui ui-slider" aria-disabled="false"></div>
-                                <div class="clearfix"></div>
-                            </div>
+                    <!-- Helping Center start -->
+                    <div class="widget helping-center mt-0">
+                        <h3 class="sidebar-title">Datos del Centro</h3>
+                        <ul class="contact-link">
+                            <li>
+                                <i class="lnr lnr-home"></i> {{centro?.nombre_centro}}
+                            </li>
 
-                            <a class="show-more-options" data-toggle="collapse" data-target="#options-content">
-                                <i class="fa fa-plus-circle"></i> Show More Options
-                            </a>
-                            <div id="options-content" class="collapse">
-                                <label class="margin-t-10">Features</label>
-                                <div class="checkbox checkbox-theme checkbox-circle">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label for="checkbox1">
-                                        Free Parking
-                                    </label>
-                                </div>
-                                <div class="checkbox checkbox-theme checkbox-circle">
-                                    <input id="checkbox2" type="checkbox">
-                                    <label for="checkbox2">
-                                        Air Condition
-                                    </label>
-                                </div>
-                                <div class="checkbox checkbox-theme checkbox-circle">
-                                    <input id="checkbox3" type="checkbox">
-                                    <label for="checkbox3">
-                                        Places to seat
-                                    </label>
-                                </div>
-                                <div class="checkbox checkbox-theme checkbox-circle">
-                                    <input id="checkbox4" type="checkbox">
-                                    <label for="checkbox4">
-                                        Swimming Pool
-                                    </label>
-                                </div>
-                                <div class="checkbox checkbox-theme checkbox-circle">
-                                    <input id="checkbox5" type="checkbox">
-                                    <label for="checkbox5">
-                                        Laundry Room
-                                    </label>
-                                </div>
-                                <div class="checkbox checkbox-theme checkbox-circle">
-                                    <input id="checkbox6" type="checkbox">
-                                    <label for="checkbox6">
-                                        Window Covering
-                                    </label>
-                                </div>
-                                <div class="checkbox checkbox-theme checkbox-circle">
-                                    <input id="checkbox7" type="checkbox">
-                                    <label for="checkbox7">
-                                        Central Heating
-                                    </label>
-                                </div>
-                                <div class="checkbox checkbox-theme checkbox-circle">
-                                    <input id="checkbox8" type="checkbox">
-                                    <label for="checkbox8">
-                                        Alarm
-                                    </label>
-                                </div>
-                            </div>
+                            <li>
+                                <i class="flaticon-technology-1"></i>
+                                <a href="tel:+55-417-634-7071">
+                                    {{centro?.telefono}}
+                                </a>
+                            </li>
+                            <li>
+                                <i class="flaticon-envelope"></i>
+                                <a href="mailto:info@themevessel.com">
+                                    {{centro?.email_centro}}
+                                </a>
+                            </li>
+                            <li>
+                                <i class="lnr lnr-laptop"></i> {{centro?.web}}
+                            </li>
+                            <li>
+                                <i class="flaticon-location"></i> {{centro?.direccion_calle}} {{centro?.direccion_numero}}, {{centro?.direccion_provincia}}, {{centro?.direccion_comunidad}}
+                            </li>
 
-                            <div class="form-group mb-0">
-                                <button class="search-button">Search</button>
-                            </div>
-                        </form>
-                    </div>
-                    <!-- Posts by category start -->
-                    <div class="posts-by-category widget">
-                        <h3 class="sidebar-title">Category</h3>
-                        <ul class="list-unstyled list-cat">
-                            <li><a href="#">Single Family <span>(45)</span></a></li>
-                            <li><a href="#">Apartment <span>(21)</span> </a></li>
-                            <li><a href="#">Condo <span>(23)</span></a></li>
-                            <li><a href="#">Multi Family <span>(19)</span></a></li>
-                            <li><a href="#">Villa <span>(19)</span></a> </li>
-                            <li><a href="#">Other <span>(22) </span></a></li>
                         </ul>
                     </div>
-                    <!-- Social media box start -->
-                    <div class="social-media-box widget clearfix">
-                        <h3 class="sidebar-title">Social Media</h3>
+                    <div class="social-media-box widget clearfix mt-0">
                         <ul class="social-list">
                             <li>
                                 <a href="#" class="facebook-bg">
@@ -644,75 +396,54 @@
                             </li>
                             <li>
                                 <a href="#" class="google-bg">
-                                    <i class="fa fa-google"></i>
+                                    <i class="fa fa-instagram"></i>
                                 </a>
                             </li>
                             <li>
                                 <a href="#" class="linkedin-bg">
-                                    <i class="fa fa-linkedin"></i>
+                                    <i class="fa fa-youtube-play"></i>
                                 </a>
                             </li>
-                            <li>
-                                <a href="#" class="pinterest-bg">
-                                    <i class="fa fa-pinterest"></i>
-                                </a>
-                            </li>
+
                         </ul>
                     </div>
                     <!-- Team 5 start -->
                     <div class="team-5 widget">
-                        <h3 class="sidebar-title">Contact Agent</h3>
-                        <div class="media">
-                            <a href="agent-detail.html">
-                                <img src="http://placehold.it/76x76" alt="avatar">
-                            </a>
-                            <div class="media-body align-self-center">
-                                <h5>
-                                    <a href="properties-details.html">John Antony</a>
-                                </h5>
-                                <p><i class="flaticon-technology-1"></i><a href="agent-detail.html">1-8X0-666-8X88</a></p>
-                                <p><i class="flaticon-envelope"></i><a href="tel:info@themevessel.com">info@themevessel.com</a></p>
-                            </div>
-                        </div>
+                        <h3 class="sidebar-title">Persona de Contacto</h3>
                         <div class="media mb-0">
                             <a href="agent-detail.html">
                                 <img src="http://placehold.it/76x76" alt="avatar">
                             </a>
                             <div class="media-body align-self-center">
                                 <h5>
-                                    <a href="properties-details.html">Karen Paran</a>
+                                    <a href="properties-details.html">{{centro?.personaContacto}}</a>
                                 </h5>
                                 <p><i class="flaticon-technology-1"></i><a href="agent-detail.html">1-8X0-666-8X88</a></p>
                                 <p><i class="flaticon-envelope"></i><a href="tel:info@themevessel.com">info@themevessel.com</a></p>
                             </div>
                         </div>
-                    </div>
-                    <!-- Financing calculator start -->
-                    <div class="contact-1 financing-calculator widget">
-                        <h5 class="sidebar-title">Mortgage Calculator</h5>
-                        <form action="#" method="GET" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <label class="form-label">Property Price</label>
-                                <input type="text" class="form-control" placeholder="$24.400">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Interest Rate (%)</label>
-                                <input type="text" class="form-control" placeholder="12%">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Period In Months</label>
-                                <input type="text" class="form-control" placeholder="6 Months">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Down PaymenT</label>
-                                <input type="text" class="form-control" placeholder="$32,300">
-                            </div>
 
-                            <div class="form-group mb-0">
-                                <button type="submit" class="btn button-theme btn-md btn-block">Cauculate</button>
-                            </div>
-                        </form>
                     </div>
+
+                    <div class="opening-hours widget">
+                        <h3 class="sidebar-title">Horario</h3>
+                        <ul class="list-style-none">
+
+                            <li><strong>Lunes</strong> <span> 8:00 - 16:00</span></li>
+                            <li><strong>Martes </strong> <span> 8:00 - 16:00</span></li>
+                            <li><strong>Miércoles </strong> <span> 8:00 - 16:00</span></li>
+                            <li><strong>Jueves </strong> <span> 8:00 - 16:00</span></li>
+                            <li><strong>Viernes </strong> <span> 8:00 - 16:00</span></li>
+                            <li><strong>Sábado </strong> <span> 8:00 - 16:00</span></li>
+                            <li><strong>Domingo</strong> <span class="text-red"> Cerrado</span></li>
+                        </ul>
+                    </div>
+
+
+
+
+
+
                 </div>
             </div>
         </div>

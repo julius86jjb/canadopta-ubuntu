@@ -9,6 +9,7 @@ export { SharedService } from './shared/shared.service';
 export { NavbarService } from './shared/navbar.service';
 export { UsuarioService } from './usuario/usuario.service';
 export { CentroService } from './centro/centro.service';
+export { GeocodeService } from './centro/geocode.service';
 
 
 

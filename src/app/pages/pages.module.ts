@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 import { AdopcionesComponent } from './adopciones/adopciones.component';
 import { HomeComponent } from '../home/home/home.component';
@@ -25,6 +26,12 @@ import { BuscadorComponent } from './panel-control/buscador/buscador.component';
 import { ModalCompletarCentroComponent } from '../components/modal-completar-centro/modal-completar-centro.component';
 import { TarjetaCentroComponent } from './centros/tarjeta-centro.component';
 import { CentroComponent } from './centros/centro.component';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { AgmCoreModule} from '@agm/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+
+
 
 
 
@@ -58,7 +65,13 @@ import { CentroComponent } from './centros/centro.component';
         FormsModule,
         SweetAlert2Module,
         PipesModule,
-        CommonModule
+        CommonModule,
+        GoogleMapsModule,
+        AgmCoreModule.forRoot({apiKey: 'AIzaSyA1BAnSXa_qQ5YCq-1c7Llqqq5qSnDNEPQ'}),
+        NgxDropzoneModule,
+        NgbModule
+    ],
+    providers: [
     ]
 })
 

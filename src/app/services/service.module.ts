@@ -10,7 +10,8 @@ import {
     LoginGuardGuard,
     CentroService,
     AdminGuard,
-    VerificaTokenGuard
+    VerificaTokenGuard,
+    GeocodeService
 } from './service.index';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -33,7 +34,8 @@ import { SubirArchivoService } from './subir-archivo/subir-archivo.service';
     CentroService,
     SubirArchivoService,
     AdminGuard,
-    VerificaTokenGuard
+    VerificaTokenGuard,
+    GeocodeService
 
   ]
 })

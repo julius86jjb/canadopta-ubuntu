@@ -82,6 +82,10 @@
                             <label>Personal Info</label>
                             <textarea class="input-text" name="message" placeholder="Personal info"></textarea>
                         </div> -->
+
+                        <ngb-timepicker [(ngModel)]="time" [ngModelOptions]="{standalone: true}"></ngb-timepicker>
+                        <hr>
+                        <pre>Selected time: {{time | json}}</pre>
                         <button type="submit" class="btn btn-md button-theme">Guardar Cambios</button>
                     </form>
                 </div>

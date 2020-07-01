@@ -363,6 +363,15 @@ button:focus {
     border-radius: 2px;
 }
 
+.bomd-2 {
+    padding: 6px 13px;
+    letter-spacing: 1px;
+    font-size: 12px;
+    font-weight: 600;
+    transition: .5s;
+    border-radius: 2px;
+}
+
 .btn {
     border-radius: 2px;
 }
@@ -1909,7 +1918,8 @@ input[type=checkbox]:checked+label:before {
     font-size: 13px;
 }
 
-.property-box .facilities-list2 li i {
+
+/* .property-box .facilities-list2 li i {
     margin-right: 10px;
     font-size: 14px;
 }
@@ -1941,7 +1951,48 @@ input[type=checkbox]:checked+label:before {
     line-height: 40px;
     text-align: center;
     width: 40px;
-    /* border-left: 1px solid #e5e5e5; */
+    border-left: 1px solid #e5e5e5;
+    color: #535353;
+} */
+
+.property-box .footer {
+    border-top: 1px solid #e5e5e5;
+    background: #fff;
+}
+
+.property-box .footer p {
+    line-height: 48px;
+    margin: 0 0 0 20px;
+}
+
+.property-box .footer p i {
+    margin-right: 5px;
+}
+
+.property-box .footer ul li {
+    display: inline-block;
+    width: 48px;
+    margin: 0 0 0 -4px;
+}
+
+.property-box .footer ul li a {
+    display: block;
+    font-size: 18px;
+    height: inherit;
+    line-height: 48px;
+    text-align: center;
+    width: 48px;
+    border-left: 1px solid #e5e5e5;
+    color: #535353;
+}
+
+.property-box .footer .days ul li a {
+    display: block;
+    font-size: 18px;
+    height: inherit;
+    line-height: 48px;
+    text-align: center;
+    width: 48px;
     color: #535353;
 }
 
@@ -5818,7 +5869,7 @@ blockquote {
 /** HEADING PROPERTIES 2 AREA START **/
 
 .heading-properties-2 {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .heading-properties-2 h3 {

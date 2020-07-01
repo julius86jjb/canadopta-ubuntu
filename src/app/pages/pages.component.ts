@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+declare function iniciar_plugins();
+declare function iniciar_plugins2();
 
 
 
@@ -12,6 +14,7 @@ export class PagesComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    iniciar_plugins();
 
   }
 

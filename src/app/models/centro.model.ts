@@ -1,3 +1,5 @@
+import { Horario } from './horario.model';
+
 export class Centro {
 
     constructor(
@@ -28,6 +30,9 @@ export class Centro {
         public youtube?: string,
         public fechaRegistro?: string,
         public centro_ok?: boolean,
-        public _id?: string
+        public galeria?: string[],
+        public _id?: string,
+        public likes?: number,
+        public horario?: Horario[]
     ) { }
 }

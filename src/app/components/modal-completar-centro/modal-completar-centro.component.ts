@@ -6,6 +6,13 @@ import { Centro } from 'src/app/models/centro.model';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { NgForm } from '@angular/forms';
+import { Location } from '../../models/location.model';
+import { GeocodeService } from '../../services/centro/geocode.service';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { SubirArchivoService } from '../../services/subir-archivo/subir-archivo.service';
+
+
+
 
 declare var $: any;
 
@@ -20,6 +27,10 @@ export class ModalCompletarCentroComponent implements OnInit {
   usuario: Usuario;
   centro = new Centro();
   public oculto = 'oculto';
+  address = 'London';
+  location: Location;
+  files: File[] = [];
+  time = {hour: 13, minute: 30};
 
   comunidades: Array<any> = [
     { name: 'Andalucía', provincias: ['Almería', 'Cádiz', 'Córdoba', 'Granada', 'Huelva', 'Jaén', 'Málaga', 'Sevilla' ] },
@@ -48,9 +59,12 @@ export class ModalCompletarCentroComponent implements OnInit {
   provincias: Array<any>;
 
   constructor( public _centroService: CentroService,
-              public _loginService: LoginService) {
+              public _loginService: LoginService,
+              private geocodeService: GeocodeService ,
+              public _subirArchivoService: SubirArchivoService) {
 
     this.usuario = this._loginService.usuario;
+
   }
 
   ngOnInit() {
@@ -64,58 +78,92 @@ export class ModalCompletarCentroComponent implements OnInit {
     this.oculto = '';
   }
 
- crearCentro(forma: NgForm) {
-  this.usuario.nombre = forma.value.nombre;
-  this.usuario.apellidos = forma.value.apellidos;
-  this.usuario.telefono = forma.value.telefono;
-  // this.usuario.perfil_ok = true;
-  this._loginService.actualizarUsuario(this.usuario)
-      .subscribe( (usuario: Usuario) => {
-        this.centro.nombre_centro = forma.value.nombre_centro;
-        this.centro.telefono = forma.value.telefono_prin;
-        this.centro.direccion_comunidad = forma.value.comunidad;
-        this.centro.direccion_provincia = forma.value.provincia;
-        this.centro.tipoCentro = forma.value.tipo_centro;
-        this.centro.email_centro = forma.value.email_centro;
-        this.centro.telefono2 = forma.value.telefono_sec;
-        this.centro.web = forma.value.web;
-        this.centro.personaContacto = forma.value.persona_cont;
-        this.centro.descripcion = forma.value.desc;
-        this.centro.procesoAdopcion = forma.value.proceso_adop;
-        this.centro.amplitudAdopcion = forma.value.amplitud;
-        this.centro.totalAdoptables = 0;
-        this.centro.direccion_calle = forma.value.calle;
-        this.centro.direccion_numero = forma.value.numero;
-        this.centro.direccion_CP = forma.value.cp;
-        this.centro.facebook = forma.value.facebook;
-        this.centro.instagram = forma.value.instagram;
-        this.centro.twitter = forma.value.twitter;
-        this.centro.youtube = forma.value.youtube;
-        this.centro.usuario = usuario._id;
-        this._centroService.crearCentro(this.centro)
-          .subscribe((resp: any) => {
-            console.log(resp);
-            this.usuario.perfil_ok = true;
-            this._loginService.actualizarUsuario(this.usuario)
-              .subscribe( (resp2: any) => {
-                Swal.fire({
-                  title: 'Bienvenido a CanaAdopta!',
-                  imageUrl: '../../../../assets/img/port3.jpg',
-                  imageWidth: 800,
-                  confirmButtonColor: '#1abc9c',
-                  confirmButtonText: 'Comenzar'
-                });
-              });
-          });
+  subirFotos(id_centro: string) {
 
-      });
- }
+    for (let i = 0; i < this.files.length; i++) {
+      this.subir(i, this.files[i], id_centro);
+    }
+  }
+
+  subir(idx, file, id) {
+
+    this._subirArchivoService.subirArchivo(file, 'centros', id)
+    .catch ( resp => {
+        console.log(resp);
+    });
+  }
+
+ crearCentro(forma: NgForm) {
+  this.geocodeService.geocodeAddress(forma.value.calle + ' ' + forma.value.numero + ' ' + forma.value.provincia + ' ' + forma.value.cp)
+  .subscribe((location: Location) => {
+      this.location = location;
+      this.usuario.nombre = forma.value.nombre;
+      this.usuario.apellidos = forma.value.apellidos;
+      this.usuario.telefono = forma.value.telefono;
+      this._loginService.actualizarUsuario(this.usuario)
+        .subscribe( (usuario: Usuario) => {
+          this.centro.nombre_centro = forma.value.nombre_centro;
+          this.centro.telefono = forma.value.telefono_prin;
+          this.centro.direccion_comunidad = forma.value.comunidad;
+          this.centro.direccion_provincia = forma.value.provincia;
+          this.centro.tipoCentro = forma.value.tipo_centro;
+          this.centro.email_centro = forma.value.email_centro;
+          this.centro.telefono2 = forma.value.telefono_sec;
+          this.centro.web = forma.value.web;
+          this.centro.personaContacto = forma.value.persona_cont;
+          this.centro.descripcion = forma.value.desc;
+          this.centro.procesoAdopcion = forma.value.proceso_adop;
+          this.centro.amplitudAdopcion = forma.value.amplitud;
+          this.centro.totalAdoptables = 0;
+          this.centro.direccion_calle = forma.value.calle;
+          this.centro.direccion_numero = forma.value.numero;
+          this.centro.direccion_CP = forma.value.cp;
+          this.centro.mapa_lat = this.location.lat.toString();
+          this.centro.mapa_lon = this.location.lng.toString();
+          this.centro.facebook = forma.value.facebook;
+          this.centro.instagram = forma.value.instagram;
+          this.centro.twitter = forma.value.twitter;
+          this.centro.youtube = forma.value.youtube;
+          this.centro.usuario = usuario._id;
+          this._centroService.crearCentro(this.centro)
+            .subscribe((resp: any) => {
+              this.subirFotos(resp._id);
+              this.usuario.perfil_ok = true;
+              this._loginService.actualizarUsuario(this.usuario)
+                .subscribe( (resp2: any) => {
+                  Swal.fire({
+                    title: 'Bienvenido a CanaAdopta!',
+                    imageUrl: '../../../../assets/img/port3.jpg',
+                    imageWidth: 800,
+                    confirmButtonColor: '#1abc9c',
+                    confirmButtonText: 'Comenzar'
+                  });
+                });
+            });
+
+        });
+      }
+    );
+
+  }
 
 
 
   changeComunidad(comunidad) {
     this.provincias = this.comunidades.find(prov => prov.name === comunidad).provincias;
-}
+  }
 
-// a traves de un event emmitter hacer una notificacion pa refrescar todo,ver videos event emitter
+
+
+  onSelect(event) {
+    console.log(event);
+    this.files.push(...event.addedFiles);
+  }
+
+  onRemove(event) {
+    console.log(event);
+    this.files.splice(this.files.indexOf(event), 1);
+  }
+
+
 }

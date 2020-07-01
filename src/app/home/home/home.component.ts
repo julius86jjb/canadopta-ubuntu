@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
     });
 
     this.auth2.attachClickHandler(element, {}, async (googleUser) => {
-        this._loginService.buscarUsuarios(googleUser.Qt.zu)
+        this._loginService.buscarUsuarios(googleUser.Ut.Eu)
             .subscribe(async (res: any) => {
                 if (res.length ===  0 ) {
                     const { value: color } = await Swal.fire({

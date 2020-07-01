@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
@@ -24,6 +25,9 @@ import { ServiceModule } from './services/service.module';
 import { SharedModule } from './shared/shared.module';
 
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { LikeDislikeComponent } from './components/like-dislike/like-dislike.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -32,6 +36,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     RegisterComponent,
     ComfirmarRegistroComponent,
     ConfirmarEmailComponent,
+    LikeDislikeComponent,
 
   ],
   imports: [
@@ -43,7 +48,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     ServiceModule,
     SharedModule,
     SweetAlert2Module.forRoot(),
-    MaterialModule
+    MaterialModule,
+    NgbModule
 
   ],
   providers: [],

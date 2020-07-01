@@ -13,6 +13,7 @@ export class Usuario {
         public img?: string,
         public google?: boolean,
         public ultimaConexion?: string,
+        public centrosLiked?: string[],
         public _id?: string,
 
     ) { }
