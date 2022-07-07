@@ -32,7 +32,7 @@
     "core-js": "^2.5.4",
     "jquery": "^3.5.0",
     "mdbootstrap": "^4.17.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "ngx-dropzone": "^2.2.2",
     "rxjs": "~6.5.5",
     "sweetalert2": "^9.4.0",
